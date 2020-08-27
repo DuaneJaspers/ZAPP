@@ -8,7 +8,7 @@
                       security_token ntext)
     </string>
   <string name="createTableTask">
-    CREATE TABLE task(id INTEGER PRIMARY KEY AUTOINCREMENT,
+    CREATE TABLE appointment(id INTEGER PRIMARY KEY AUTOINCREMENT,
                       datetime DATETIME,
                       client_name ntext,
                       client_address ntext,
@@ -20,21 +20,21 @@
                       comment ntext)
   </string>
   <string name="createTableSubTask">
-    CREATE TABLE subtask(id INTEGER PRIMARY KEY AUTOINCREMENT,
-                         task_id INTEGER NOT NULL,
+    CREATE TABLE task(id INTEGER PRIMARY KEY AUTOINCREMENT,
+                         appointment_id INTEGER NOT NULL,
                          description ntext,
                          complete BOOL NOT NULL,
-                         FOREIGN KEY(task_id) REFERENCES task(id)
+                         FOREIGN KEY(appointment_id) REFERENCES appointment(id)
                          )
   </string>
   <string name="addItemToTableUser">
     INSERT INTO user(username, password) VALUES (\'{0}\', \'{1}\')
   </string>
-  <string name="addTaskToTable">
-    INSERT INTO task(id, datetime, client_name, client_address, client_zipcode, client_city, client_phonenumber, comment) VALUES (\'{0}\', \'{1}\', \'{2}\', \'{3}\', \'{4}\', \'{5}\', \'{6}\', \'{7}\')
+  <string name="addAppointmentToTable">
+    INSERT INTO appointment(id, datetime, client_name, client_address, client_zipcode, client_city, client_phonenumber, comment) VALUES (\'{0}\', \'{1}\', \'{2}\', \'{3}\', \'{4}\', \'{5}\', \'{6}\', \'{7}\')
   </string>
   <string name="getAllTasks">
-    SELECT * FROM task ORDER BY datetime ASC
+    SELECT * FROM appointment ORDER BY datetime ASC
   </string>
 <string name="logoDescription">
   ZAPP logo

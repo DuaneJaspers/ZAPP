@@ -15,7 +15,7 @@ using Mono.Data.Sqlite;
 
 namespace ZAPP.Records
 {
-    public class TaskRecord
+    public class AppointmentRecord
     {
         public int id;
         public string datetime;
@@ -29,7 +29,7 @@ namespace ZAPP.Records
         public string comment;
 
 
-        public TaskRecord(JsonValue record)
+        public AppointmentRecord(JsonValue record)
         {
             this.id = (int)(Int64)record["id"];
             this.datetime = (string)record["datetime"];
@@ -41,7 +41,7 @@ namespace ZAPP.Records
             this.comment = (string)@record["comment"];
         }
 
-        public TaskRecord(SqliteDataReader record)
+        public AppointmentRecord(SqliteDataReader record)
         {
             this.id = (int)(Int64)record["id"];
             this.datetime = record["datetime"].ToString();

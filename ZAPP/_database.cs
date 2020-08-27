@@ -28,7 +28,7 @@ namespace ZAPP
         private Context context;
         private readonly string LOGIN_URL = "";
         //private readonly string DATA_URL = "https://gist.githubusercontent.com/DuaneJaspers/2e47a7c38e8f736a2036c52221362cef/raw/e9c7ccabd91217202f653aa3af3e2007fa155a1c/tasks.json";
-        private readonly string DATA_URL = "https://fakemyapi.com/api/fake?id=cccc48d3-aec7-4447-b4ce-cc9a76e60647"; 
+        private readonly string DATA_URL = "https://fakemyapi.com/api/fake?id=9c8c603a-bdbc-4d41-b955-0420ca1730a8"; 
         private string connectionString;
 
         // constructor
@@ -84,12 +84,12 @@ namespace ZAPP
                     }
                     conn.Close();
                 }
+                this.downloadData();
             }
             else
             {
                 Console.WriteLine("Database not created");
             }
-                //this.downloadData();
         }
 
         public void nonQueryToDatabase(string command)
@@ -134,10 +134,10 @@ namespace ZAPP
         //    }
         //}
 
-        public void saveTaskRecord(TaskRecord record)
+        public void saveAppointmentRecord(AppointmentRecord record)
         {
             Resources res = this.context.Resources;
-            string command = res.GetString(Resource.String.addTaskToTable);
+            string command = res.GetString(Resource.String.addAppointmentToTable);
             command = String.Format(
                 command, record.id, record.datetime, WebUtility.HtmlEncode(record.client_name),
                         WebUtility.HtmlEncode(record.client_address), record.client_zipcode, WebUtility.HtmlEncode(record.client_city),
@@ -156,14 +156,14 @@ namespace ZAPP
 
                 JsonValue value = JsonValue.Parse(download);
                 // loop through differenct tasks
-                foreach (var allTasks in (JsonObject)value)
+                foreach (var allAppointments in (JsonObject)value)
                 {
-                    var key = allTasks.Key;
-                    JsonValue taskValue = allTasks.Value;
-                    foreach (JsonObject task in taskValue)
+                    var key = allAppointments.Key;
+                    JsonValue taskValue = allAppointments.Value;
+                    foreach (JsonObject appointment in taskValue)
                     {
-                        TaskRecord taskRecord = new TaskRecord(task);
-                        this.saveTaskRecord(taskRecord);
+                        AppointmentRecord appointmentRecord = new AppointmentRecord(appointment);
+                        this.saveAppointmentRecord(appointmentRecord);
 
                     }
                 }
@@ -189,10 +189,10 @@ namespace ZAPP
                     cmd.CommandText = command;
                     cmd.CommandType = CommandType.Text;
                     SqliteDataReader record = cmd.ExecuteReader();
-                    do
+                    while (record.Read())
                     {
-                        allData.Add(new TaskRecord(record));
-                    } while (record.Read());
+                        allData.Add(new AppointmentRecord(record));
+                    } 
                     record.Close();
 
                 }
