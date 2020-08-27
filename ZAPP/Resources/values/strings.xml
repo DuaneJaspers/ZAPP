@@ -30,7 +30,10 @@
   <string name="addItemToTableUser">
     INSERT INTO user(username, password) VALUES (\'{0}\', \'{1}\')
   </string>
+  <string name="addTaskToTable">
+    INSERT INTO task(id, datetime, client_name, client_address, client_zipcode, client_city, client_phonenumber, comment) VALUES (\'{0}\', \'{1}\', \'{2}\', \'{3}\', \'{4}\', \'{5}\', \'{6}\', \'{7}\')
+  </string>
   <string name="getAllTasks">
-    SELECT * FROM tasks ASC datetime
+    SELECT * FROM task ORDER BY datetime ASC
   </string>
 </resources>

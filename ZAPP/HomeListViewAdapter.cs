@@ -42,13 +42,13 @@ namespace ZAPP
         {
             var item = items[position];
             View view = convertView;
-            //if (view == null)
-            //{
-            //    view = context.LayoutInflater.Inflate(Resource.Layout.ListRow, null);
-            //}
-            //view.FindViewById<TextView>(Resource.Id.Text1).Text = item.id;
-            //view.FindViewById<TextView>(Resource.Id.Text2).Text = item.code;
-            //view.FindViewById<TextView>(Resource.Id.Text3).Text = item.description;
+            if (view == null)
+            {
+                view = context.LayoutInflater.Inflate(Resource.Layout.ListRow, null);
+            }
+            view.FindViewById<TextView>(Resource.Id.Text1).Text = item.name;
+            view.FindViewById<TextView>(Resource.Id.Text2).Text = $"{item.adress}, {item.zipcode} {item.city}";
+            view.FindViewById<TextView>(Resource.Id.Text3).Text = item.datetime;
 
             return view;
         }
