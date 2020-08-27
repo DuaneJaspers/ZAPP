@@ -25,15 +25,16 @@ namespace ZAPP
         {
             base.OnCreate(bundle);
             _database db = new _database(this);
-            result = db.getAllTasks();
+            result = db.getAllAppointments();
             records = new List<ListRecord>();
             foreach (AppointmentRecord appointment in result)
             {
-                ListRecord row = new ListRecord(appointment.client_name,
+                ListRecord row = new ListRecord(appointment.id,
+                                                appointment.client_name,
                                                 appointment.client_address,
                                                 appointment.client_zipcode,
                                                 appointment.client_city,
-                                                appointment.datetime);
+                                                appointment.datetime); ;
                 records.Add(row);
             }
 
@@ -49,9 +50,9 @@ namespace ZAPP
             var t = records[e.Position];
             Console.WriteLine(e.Position);
             var intent = new Intent(this, typeof(DetailActivity));
-            //intent.PutExtra("ID", t.id.ToString());
-            //intent.PutExtra("code", t.code.ToString());
-            //intent.PutExtra("description", t.description.ToString());
+            intent.PutExtra("ID", t.id.ToString());
+            intent.PutExtra("code", t.name.ToString());
+            intent.PutExtra("description", t.adress.ToString());
             StartActivityForResult(intent, 0);
         }
     }

@@ -7,7 +7,7 @@
                       password ntext,
                       security_token ntext)
     </string>
-  <string name="createTableTask">
+  <string name="createTableAppointment">
     CREATE TABLE appointment(id INTEGER PRIMARY KEY AUTOINCREMENT,
                       datetime DATETIME,
                       client_name ntext,
@@ -19,13 +19,13 @@
                       time_finish TIME,
                       comment ntext)
   </string>
-  <string name="createTableSubTask">
-    CREATE TABLE task(id INTEGER PRIMARY KEY AUTOINCREMENT,
-                         appointment_id INTEGER NOT NULL,
-                         description ntext,
-                         complete BOOL NOT NULL,
-                         FOREIGN KEY(appointment_id) REFERENCES appointment(id)
-                         )
+  <string name="createTableTask">
+    CREATE TABLE task(id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    appointment_id INTEGER NOT NULL,
+    description ntext,
+    complete BOOL,
+    FOREIGN KEY(appointment_id) REFERENCES appointment(id)
+    )
   </string>
   <string name="addItemToTableUser">
     INSERT INTO user(username, password) VALUES (\'{0}\', \'{1}\')
@@ -33,7 +33,10 @@
   <string name="addAppointmentToTable">
     INSERT INTO appointment(id, datetime, client_name, client_address, client_zipcode, client_city, client_phonenumber, comment) VALUES (\'{0}\', \'{1}\', \'{2}\', \'{3}\', \'{4}\', \'{5}\', \'{6}\', \'{7}\')
   </string>
-  <string name="getAllTasks">
+  <string name="addTaskToTable">
+    INSERT INTO task(id, appointment_id, description, complete) VALUES ({0}, \'{1}\', \'{2}\', {3})
+  </string>
+  <string name="getAllAppointments">
     SELECT * FROM appointment ORDER BY datetime ASC
   </string>
 <string name="logoDescription">

@@ -66,11 +66,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DetailActivity.cs" />
+    <Compile Include="Global.cs" />
     <Compile Include="Home.cs" />
     <Compile Include="HomeListViewAdapter.cs" />
     <None Include="JSON\fakeTask.JSON" />
     <Compile Include="ListRecord.cs" />
     <Compile Include="Records\AppointmentRecord.cs" />
+    <Compile Include="Records\TaskRecord.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SplashActivity.cs" />
