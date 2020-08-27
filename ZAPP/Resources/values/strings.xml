@@ -36,4 +36,7 @@
   <string name="getAllTasks">
     SELECT * FROM task ORDER BY datetime ASC
   </string>
+<string name="logoDescription">
+  ZAPP logo
+</string>
 </resources>

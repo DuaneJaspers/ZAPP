@@ -57,6 +57,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Json" />
+    <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="Mono.Android" />
@@ -67,6 +68,7 @@
     <Compile Include="DetailActivity.cs" />
     <Compile Include="Home.cs" />
     <Compile Include="HomeListViewAdapter.cs" />
+    <None Include="JSON\fakeTask.JSON" />
     <Compile Include="ListRecord.cs" />
     <Compile Include="Records\TaskRecord.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
@@ -125,6 +127,14 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\ListRow.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\zapplogo.png">
+      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\zapp_logo.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

@@ -6,36 +6,50 @@
     <LinearLayout
         android:id="@+id/Text"
         android:orientation="vertical"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="10dip">
-        <TextView
-            android:id="@+id/Text1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="#000000"
-            android:textSize="20dip"
-            android:textStyle="bold"/>
         <LinearLayout
             android:id="@+id/SubText"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:paddingLeft="2dip">
             <TextView
-                android:id="@+id/Text2"
+                android:id="@+id/Text1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="14dip"
-                android:textColor="#000000"
-                android:textStyle="italic"/>
-            <TextView
-                android:id="@+id/Text3"
-                android:layout_width="wrap_content"
+                android:textSize="20dip"
+                android:textStyle="bold"
+                android:textColor="#662483"/>
+            <LinearLayout
+                android:id="@+id/Text"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="14dip"
-                android:textColor="#000000"
-                android:textStyle="italic"/>
+                android:gravity="top|right"
+                android:paddingLeft="10dip"
+                android:layout_marginRight="1.0dp">
+                <TextView
+                    android:id="@+id/Text3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12dip"
+                    android:textColor="#000000"/>
+                <TextView
+                    android:id="@+id/Text4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12dip"
+                    android:textColor="#000000"/>
+            </LinearLayout>
         </LinearLayout>
+        <TextView
+            android:id="@+id/Text2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#000000"
+            android:textSize="14dip"/>
+
     </LinearLayout>
 </LinearLayout>

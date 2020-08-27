@@ -89,7 +89,7 @@ namespace ZAPP
             {
                 Console.WriteLine("Database not created");
             }
-                this.downloadData();
+                //this.downloadData();
         }
 
         public void nonQueryToDatabase(string command)
@@ -140,7 +140,7 @@ namespace ZAPP
             string command = res.GetString(Resource.String.addTaskToTable);
             command = String.Format(
                 command, record.id, record.datetime, WebUtility.HtmlEncode(record.client_name),
-                        WebUtility.HtmlEncode(record.client_address), record.client_zipcode, record.client_city,
+                        WebUtility.HtmlEncode(record.client_address), record.client_zipcode, WebUtility.HtmlEncode(record.client_city),
                         record.client_phonenumber, record.comment);
             this.nonQueryToDatabase(command);
         }
