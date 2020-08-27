@@ -24,8 +24,8 @@ namespace ZAPP
     {
         //Context Definieren
         private Context context;
-        private string loginUrl = "https://webservices.educom.nu/services/first/";
-        private string DATA_URL = "https://gist.githubusercontent.com/DuaneJaspers/2e47a7c38e8f736a2036c52221362cef/raw/e9c7ccabd91217202f653aa3af3e2007fa155a1c/tasks.json";
+        private readonly string LOGIN_URL = "";
+        private readonly string DATA_URL = "https://gist.githubusercontent.com/DuaneJaspers/2e47a7c38e8f736a2036c52221362cef/raw/e9c7ccabd91217202f653aa3af3e2007fa155a1c/tasks.json";
         private string connectionString;
 
         // constructor
@@ -43,11 +43,12 @@ namespace ZAPP
                 res.GetString(Resource.String.app_name);
             string app_version =
                 res.GetString(Resource.String.app_version);
-            ArrayList createTablesCommands = new ArrayList();
-
-            createTablesCommands.Add(res.GetString(Resource.String.createTableUser));
-            createTablesCommands.Add(res.GetString(Resource.String.createTableTask));
-            createTablesCommands.Add(res.GetString(Resource.String.createTableSubTask));
+            ArrayList createTablesCommands = new ArrayList
+            {
+                res.GetString(Resource.String.createTableUser),
+                res.GetString(Resource.String.createTableTask),
+                res.GetString(Resource.String.createTableSubTask)
+            };
 
             string dbname = "_db_" + app_name + "_" + app_version + ".sqlite";
 
@@ -87,6 +88,22 @@ namespace ZAPP
             }
         }
 
+        public void nonQueryToDatabase(string command)
+        {
+            using (var conn = new SqliteConnection(this.connectionString))
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    // Table data
+                    cmd.CommandText = command;
+                    cmd.CommandType = CommandType.Text;
+                    cmd.ExecuteNonQuery();
+                }
+                conn.Close();
+                
+            }
+        }
     }
 
 }
