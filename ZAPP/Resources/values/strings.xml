@@ -1,4 +1,36 @@
 <resources>
+    <string name="app_version">0.1</string>
     <string name="app_name">ZAPP</string>
-    <string name="action_settings">Settings</string>
+    <string name="createTableUser">
+      CREATE TABLE user(id INTEGER PRIMARY KEY AUTOINCREMENT,
+                      username ntext, 
+                      password ntext,
+                      security_token ntext)
+    </string>
+  <string name="createTableTask">
+    CREATE TABLE task(id INTEGER PRIMARY KEY AUTOINCREMENT,
+                      datetime DATETIME,
+                      client_name ntext,
+                      client_address ntext,
+                      client_zipcode ntext,
+                      client_city ntext,
+                      client_phonenumber ntext,
+                      time_start TIME,
+                      time_finish TIME,
+                      comment ntext)
+  </string>
+  <string name="createTableSubTask">
+    CREATE TABLE subtask(id INTEGER PRIMARY KEY AUTOINCREMENT,
+                         task_id INTEGER NOT NULL,
+                         description ntext,
+                         complete BOOL NOT NULL,
+                         FOREIGN KEY(task_id) REFERENCES task(id)
+                         )
+  </string>
+  <string name="addItemToTableUser">
+    INSERT INTO user(username, password) VALUES (\'{0}\', \'{1}\')
+  </string>
+  <string name="getAllTasks">
+    SELECT * FROM tasks ASC datetime
+  </string>
 </resources>
