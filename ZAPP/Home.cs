@@ -18,7 +18,7 @@ namespace ZAPP
     class Home : Activity
     {
         ListView listView;
-        List<ListRecord> records;
+        List<OverviewListRecord> records;
         ArrayList result;
 
         protected override void OnCreate(Bundle bundle)
@@ -26,10 +26,10 @@ namespace ZAPP
             base.OnCreate(bundle);
             _database db = new _database(this);
             result = db.getAllAppointments();
-            records = new List<ListRecord>();
+            records = new List<OverviewListRecord>();
             foreach (AppointmentRecord appointment in result)
             {
-                ListRecord row = new ListRecord(appointment.id,
+                OverviewListRecord row = new OverviewListRecord(appointment.id,
                                                 appointment.client_name,
                                                 appointment.client_address,
                                                 appointment.client_zipcode,

@@ -136,7 +136,7 @@ namespace ZAPP
             Resources res = this.context.Resources;
             string command = res.GetString(Resource.String.addTaskToTable);
             string id = (record.id).HasValue ? record.id.ToString() : "NULL";
-            string complete = (record.id).HasValue ? record.complete.ToString() : "NULL";
+            string complete = (record.id).HasValue ? record.complete.ToString() : "0";
             command = string.Format(command,
                 id, record.appointment_id, record.description, complete);
             this.nonQueryToDatabase(command);
@@ -194,6 +194,32 @@ namespace ZAPP
                     {
                         allData.Add(new AppointmentRecord(record));
                     } 
+                    record.Close();
+
+                }
+            }
+            return allData;
+
+        }
+
+        public ArrayList getAllTasksByAppointmentId(string id)
+        {
+            ArrayList allData = new ArrayList();
+            Resources res = this.context.Resources;
+            string command = res.GetString(Resource.String.getAllTasksByAppointmentId);
+            command = String.Format(command, id); 
+            using (var conn = Global.sqliteConnection)
+            {
+                using (var cmd = conn.CreateCommand())
+                {
+                    // Table data
+                    cmd.CommandText = command;
+                    cmd.CommandType = CommandType.Text;
+                    SqliteDataReader record = cmd.ExecuteReader();
+                    while (record.Read())
+                    {
+                        allData.Add(new TaskRecord(record));
+                    }
                     record.Close();
 
                 }

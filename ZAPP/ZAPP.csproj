@@ -65,12 +65,13 @@
     <Reference Include="System.Numerics.Vectors" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="TaskListViewAdapter.cs" />
     <Compile Include="DetailActivity.cs" />
     <Compile Include="Global.cs" />
     <Compile Include="Home.cs" />
     <Compile Include="HomeListViewAdapter.cs" />
     <None Include="JSON\fakeTask.JSON" />
-    <Compile Include="ListRecord.cs" />
+    <Compile Include="Records\OverviewListRecord.cs" />
     <Compile Include="Records\AppointmentRecord.cs" />
     <Compile Include="Records\TaskRecord.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
@@ -137,6 +138,9 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\zapp_logo.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\taskListRow.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

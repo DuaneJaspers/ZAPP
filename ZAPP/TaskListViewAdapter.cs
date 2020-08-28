@@ -13,18 +13,18 @@ using ZAPP.Records;
 
 namespace ZAPP
 {
-    [Activity (Label = "HomeListViewAdapter")]
-    class HomeListViewAdapter : BaseAdapter<OverviewListRecord>
+    [Activity(Label = "TaskListViewAdapter")]
+    public class TaskListViewAdapter : BaseAdapter<TaskRecord>
     {
-        List<OverviewListRecord> items;
+        List<TaskRecord> items;
         Activity context;
 
-        public HomeListViewAdapter(Activity context, List<OverviewListRecord> items) :base()
+        public TaskListViewAdapter(Activity context, List<TaskRecord> items) : base()
         {
             this.context = context;
             this.items = items;
         }
-        public override OverviewListRecord this[int position]
+        public override TaskRecord this[int position]
         {
             get { return items[position]; }
         }
@@ -45,14 +45,13 @@ namespace ZAPP
             View view = convertView;
             if (view == null)
             {
-                view = context.LayoutInflater.Inflate(Resource.Layout.ListRow, null);
+                view = context.LayoutInflater.Inflate(Resource.Layout.taskListRow, null);
             }
-            view.FindViewById<TextView>(Resource.Id.Text1).Text = item.name;
-            view.FindViewById<TextView>(Resource.Id.Text2).Text = $"{item.adress}, {item.zipcode} {item.city}";
-            view.FindViewById<TextView>(Resource.Id.Text3).Text = Convert.ToDateTime(item.datetime).ToString("dd-MM-yyyy");
-            view.FindViewById<TextView>(Resource.Id.Text4).Text = Convert.ToDateTime(item.datetime).ToString("HH:mm")+" uur";
+            view.FindViewById<TextView>(Resource.Id.taskText).Text = item.description;
+ 
 
             return view;
         }
+
     }
 }

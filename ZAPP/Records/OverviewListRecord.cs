@@ -11,9 +11,10 @@ using Android.Views;
 using Android.Widget;
 using Mono.Data.Sqlite;
 
-namespace ZAPP
+namespace ZAPP.Records
+
 {
-    class ListRecord
+    class OverviewListRecord
     {
         public int id;
         public string name;
@@ -22,7 +23,7 @@ namespace ZAPP
         public string city;
         public string datetime;
 
-        public ListRecord(int id, string name, string adress, string zipcode, string city, string datetime)
+        public OverviewListRecord(int id, string name, string adress, string zipcode, string city, string datetime)
         {
             this.id = id;
             this.name = name;

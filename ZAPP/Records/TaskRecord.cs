@@ -32,7 +32,16 @@ namespace ZAPP.Records
             this.id = (int)(Int64)record["id"];
             this.appointment_id = (int)(Int64)record["appointment_id"];
             this.description = (string)record["description"];
+            var temp = record["complete"];
             this.complete = (bool)record["complete"];
+        }
+
+        public TaskRecord(int id, int appointment_id, string description, bool complete)
+        {
+            this.id = id;
+            this.appointment_id = appointment_id;
+            this.description = description;
+            this.complete = complete;
         }
     }
 }

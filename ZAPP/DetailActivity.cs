@@ -9,12 +9,18 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using System.Collections;
+using ZAPP.Records;
 
 namespace ZAPP
 {
     [Activity(Label = "DetailActivity")]
     public class DetailActivity : Activity
     {
+        ListView listView;
+        List<TaskRecord> records;
+        ArrayList tasks;
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -22,11 +28,17 @@ namespace ZAPP
             var code = Intent.GetStringExtra("code");
             var description = Intent.GetStringExtra("description");
             Console.WriteLine($"Got ID: {id}");
+            _database db = new _database(this);
+            tasks = db.getAllTasksByAppointmentId(id);
+            records = new List<TaskRecord>();
+            foreach (TaskRecord taskRecord in tasks)
+            {
+                records.Add(taskRecord);
+            }
 
             SetContentView(Resource.Layout.Detail);
-            FindViewById<TextView>(Resource.Id.textViewer1).Text = id;
-            FindViewById<TextView>(Resource.Id.textViewer2).Text = code;
-            FindViewById<TextView>(Resource.Id.textViewer3).Text = description;
+            listView = FindViewById<ListView>(Resource.Id.taskList);
+            listView.Adapter = new TaskListViewAdapter(this, records);
 
         }
     }

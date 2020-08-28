@@ -23,7 +23,7 @@
     CREATE TABLE task(id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
     appointment_id INTEGER NOT NULL,
     description ntext,
-    complete BOOL,
+    complete BOOL NOT NULL,
     FOREIGN KEY(appointment_id) REFERENCES appointment(id)
     )
   </string>
@@ -39,7 +39,10 @@
   <string name="getAllAppointments">
     SELECT * FROM appointment ORDER BY datetime ASC
   </string>
-<string name="logoDescription">
+  <string name="getAllTasksByAppointmentId">
+    SELECT * FROM task WHERE appointment_id = {0} 
+  </string>
+  <string name="logoDescription">
   ZAPP logo
 </string>
 </resources>
