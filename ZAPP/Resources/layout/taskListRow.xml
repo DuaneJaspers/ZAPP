@@ -13,6 +13,7 @@
         android:id="@+id/taskText"
         android:layout_centerVertical="true"
         android:layout_marginRight="36dp"
+       android:textSize="65px"
 
     />
     <CheckBox

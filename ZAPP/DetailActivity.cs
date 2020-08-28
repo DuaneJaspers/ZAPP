@@ -25,9 +25,7 @@ namespace ZAPP
         {
             base.OnCreate(savedInstanceState);
             var id = Intent.GetStringExtra("ID");
-            var code = Intent.GetStringExtra("code");
-            var description = Intent.GetStringExtra("description");
-            Console.WriteLine($"Got ID: {id}");
+
             _database db = new _database(this);
             tasks = db.getAllTasksByAppointmentId(id);
             records = new List<TaskRecord>();
@@ -40,6 +38,13 @@ namespace ZAPP
             listView = FindViewById<ListView>(Resource.Id.taskList);
             listView.Adapter = new TaskListViewAdapter(this, records);
             listView.ItemClick += OnListItemClick;
+
+            Button aanmeldButton = FindViewById<Button>(Resource.Id.aanmeldButton);
+            aanmeldButton.Click += delegate
+            {
+                toggleAanmeldButton(aanmeldButton);
+            };
+
 
 
         }
@@ -54,6 +59,11 @@ namespace ZAPP
             taskCheck.Toggle();
         }
 
+        protected void toggleAanmeldButton(Button aanmeldButton)
+        {
+            Console.WriteLine("Button CLICKED");
+            aanmeldButton.Text = "NEW CLICK WOOHOO";
+        }
     }
 
 }

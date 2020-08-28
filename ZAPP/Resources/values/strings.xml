@@ -51,4 +51,7 @@
   <string name="logoDescription">
   ZAPP logo
 </string>
+  <string name="StartWorking">
+    Aanmelden
+  </string>    
 </resources>
