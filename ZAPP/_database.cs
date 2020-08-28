@@ -19,6 +19,7 @@ using Android.Views;
 using Android.Widget;
 using ZAPP.Records;
 using System.Web;
+using System.Linq.Expressions;
 
 namespace ZAPP
 {
@@ -26,10 +27,9 @@ namespace ZAPP
     {
         //Context Definieren
         private Context context;
-        private readonly string LOGIN_URL = "";
         //private readonly string DATA_URL = "https://gist.githubusercontent.com/DuaneJaspers/2e47a7c38e8f736a2036c52221362cef/raw/e9c7ccabd91217202f653aa3af3e2007fa155a1c/tasks.json";
-        private readonly string DATA_URL = "https://fakemyapi.com/api/fake?id=9c8c603a-bdbc-4d41-b955-0420ca1730a8"; 
-
+        private readonly string DATA_URL = "https://fakemyapi.com/api/fake?id=9c8c603a-bdbc-4d41-b955-0420ca1730a8";
+        private string connectionstring;  
         // constructor
         public _database(Context context)
         {
@@ -59,40 +59,54 @@ namespace ZAPP
             string pathToDatabase = Path.Combine(documentsPath, dbname);
             var connectionString = String.Format("Data Source={0};Version=3;",
                                                     pathToDatabase);
-
+            this.connectionstring = connectionString;
 
             if (!File.Exists(pathToDatabase))
             {
-                SqliteConnection.CreateFile(pathToDatabase);
-                Global.saveConnection(new SqliteConnection(connectionString)); 
-            
-                using (var cmd = Global.sqliteConnection.CreateCommand())
+                using (var conn = new SqliteConnection(connectionstring))
                 {
-                    foreach (string command in createTablesCommands)
+                    conn.Open();
+                    using (var cmd = conn.CreateCommand())
                     {
-                        cmd.CommandText = command;
-                        cmd.CommandType = CommandType.Text;
-                        cmd.ExecuteNonQuery();
-                        Console.WriteLine("table created");
+                        foreach (string command in createTablesCommands)
+                        {
+                            cmd.CommandText = command;
+                            cmd.CommandType = CommandType.Text;
+                            cmd.ExecuteNonQuery();
+                            Console.WriteLine("table created");
+                        }
                     }
+                    conn.Close();
+                    this.downloadData();
                 }
-                this.downloadData();
             }
             else
             {
-                Global.saveConnection(new SqliteConnection(connectionString));
-            }
+                Console.WriteLine("no new db created.");            }
         }
 
         public void nonQueryToDatabase(string command)
         {
-            using (var cmd = Global.sqliteConnection.CreateCommand())
+            var conn = new SqliteConnection(connectionstring);
+            conn.Open();
+            using (var cmd = conn.CreateCommand())
             {
                 // Table data
-                cmd.CommandText =  command;
+                
+                cmd.CommandText = command;
                 cmd.CommandType = CommandType.Text;
                 cmd.ExecuteNonQuery();
             }
+            conn.Close();
+        }
+
+        public void deleteTaskById(int id)
+        {
+            Resources res = this.context.Resources;
+            string command = res.GetString(Resource.String.deleteTaskById);
+            command = String.Format(command, id);
+            this.nonQueryToDatabase(command);
+
         }
 
         //public void getUserRecordFromDatabase(string command)
@@ -136,7 +150,7 @@ namespace ZAPP
             Resources res = this.context.Resources;
             string command = res.GetString(Resource.String.addTaskToTable);
             string id = (record.id).HasValue ? record.id.ToString() : "NULL";
-            string complete = (record.id).HasValue ? record.complete.ToString() : "0";
+            string complete = (record.id).HasValue ? record.complete.ToString() : "False";
             command = string.Format(command,
                 id, record.appointment_id, record.description, complete);
             this.nonQueryToDatabase(command);
@@ -152,7 +166,7 @@ namespace ZAPP
                 string download = Encoding.ASCII.GetString(myDataBuffer);
 
                 JsonValue value = JsonValue.Parse(download);
-                
+
                 // loop through differenct tasks
                 foreach (var allAppointments in (JsonObject)value)
                 {
@@ -182,8 +196,9 @@ namespace ZAPP
             ArrayList allData = new ArrayList();
             Resources res = this.context.Resources;
             string command = res.GetString(Resource.String.getAllAppointments);
-            using (var conn = Global.sqliteConnection)
+            using (var conn = new SqliteConnection(connectionstring))
             {
+                conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
                     // Table data
@@ -193,23 +208,68 @@ namespace ZAPP
                     while (record.Read())
                     {
                         allData.Add(new AppointmentRecord(record));
-                    } 
+                    }
                     record.Close();
 
-                }
+                    }
+                conn.Close();
             }
             return allData;
 
         }
+        
+
+        public void toggleTaskCompleteness(int id, bool complete)
+        {
+            TaskRecord record = this.getTaskById(id);
+            deleteTaskById(id);
+            record.complete = complete;
+            this.saveTaskRecord(record);
+        }
+
+        public TaskRecord getTaskById(int id)
+        {
+            TaskRecord taskRecord;
+            Resources res = this.context.Resources;
+            string command = res.GetString(Resource.String.getTaskById);
+            command = String.Format(command, id);
+            using (var conn = new SqliteConnection(connectionstring))
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    // Table data
+                    cmd.CommandText = command;
+                    cmd.CommandType = CommandType.Text;
+                    SqliteDataReader record = cmd.ExecuteReader();
+                    if (record.Read())
+                    { 
+                    taskRecord = new TaskRecord(record); 
+                    }
+                    else
+                    {
+                        Console.WriteLine("task not found");
+                        taskRecord = null;
+                    }
+                 
+                }
+                conn.Close();
+                return taskRecord;
+            }
+
+        }
+        
+
 
         public ArrayList getAllTasksByAppointmentId(string id)
         {
             ArrayList allData = new ArrayList();
             Resources res = this.context.Resources;
             string command = res.GetString(Resource.String.getAllTasksByAppointmentId);
-            command = String.Format(command, id); 
-            using (var conn = Global.sqliteConnection)
+            command = String.Format(command, id);
+            using (var conn = new SqliteConnection(connectionstring))
             {
+                conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
                     // Table data
@@ -223,6 +283,7 @@ namespace ZAPP
                     record.Close();
 
                 }
+                conn.Close();
             }
             return allData;
 

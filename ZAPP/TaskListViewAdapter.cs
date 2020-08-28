@@ -49,6 +49,7 @@ namespace ZAPP
             }
             view.FindViewById<TextView>(Resource.Id.taskText).Text = item.description;
             CheckBox taskCheck = (CheckBox)view.FindViewById(Resource.Id.checkBox1);
+            taskCheck.Tag = item.id;
             taskCheck.SetOnCheckedChangeListener(null);
             taskCheck.Checked = item.complete;
             taskCheck.SetOnCheckedChangeListener(new CheckedChangeListener(this.context));
@@ -68,12 +69,18 @@ namespace ZAPP
             
             public void OnCheckedChanged(CompoundButton buttonView, bool isChecked)
             {
+                int id = (int)buttonView.Tag;
+                _database db = new _database(activity);
+
                 if (isChecked)
                 {
                     string name = "check";
+                    //activity.db.toggleTaskCompleteness();
+                    db.toggleTaskCompleteness(id, true);
                     Console.WriteLine(name);
                 } else
                 {
+                    db.toggleTaskCompleteness(id, false);
                     Console.WriteLine("unchecked");
                 }
             }

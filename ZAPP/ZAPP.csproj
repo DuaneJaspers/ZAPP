@@ -67,7 +67,6 @@
   <ItemGroup>
     <Compile Include="TaskListViewAdapter.cs" />
     <Compile Include="DetailActivity.cs" />
-    <Compile Include="Global.cs" />
     <Compile Include="Home.cs" />
     <Compile Include="HomeListViewAdapter.cs" />
     <None Include="JSON\fakeTask.JSON" />
@@ -117,6 +116,15 @@
     <AndroidResource Include="Resources\drawable\splash_background.xml" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Polly">
+      <Version>7.2.1</Version>
+    </PackageReference>
+    <PackageReference Include="sqlite-net-pcl">
+      <Version>1.7.335</Version>
+    </PackageReference>
+    <PackageReference Include="System.Threading.Tasks.Extensions">
+      <Version>4.5.4</Version>
+    </PackageReference>
     <PackageReference Include="Xamarin.Android.Support.Design" Version="28.0.0.3" />
     <PackageReference Include="Xamarin.Android.Support.Core.Utils" Version="28.0.0.3" />
     <PackageReference Include="Xamarin.Android.Support.CustomTabs" Version="28.0.0.3" />

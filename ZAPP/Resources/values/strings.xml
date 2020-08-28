@@ -36,6 +36,12 @@
   <string name="addTaskToTable">
     INSERT INTO task(id, appointment_id, description, complete) VALUES ({0}, \'{1}\', \'{2}\', {3})
   </string>
+  <string name="deleteTaskById">
+    DELETE FROM task WHERE id = {0} 
+  </string>
+  <string name="getTaskById">
+    SELECT * FROM task WHERE id = {0}
+  </string>
   <string name="getAllAppointments">
     SELECT * FROM appointment ORDER BY datetime ASC
   </string>
