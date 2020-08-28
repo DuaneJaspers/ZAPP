@@ -13,3 +13,6 @@ ZAPP is een case waarbij het de bedoeling is om een Zorgapp te maken die 1ste en
 
 ## Applicatieserver 
 De applicatieserver wordt vooralsnog gesimuleerd met een paar gehoste json files, waarvan het resultaat hetzelfde zou zijn als wanneer een api server daadwerkelijk aangeroepen zou worden.
+
+###
+Dit is een Android app geschreven in C# met het Xamarin platform
