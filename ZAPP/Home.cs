@@ -48,7 +48,6 @@ namespace ZAPP
                                     Android.Widget.AdapterView.ItemClickEventArgs e)
         {
             var t = records[e.Position];
-            Console.WriteLine(e.Position);
             var intent = new Intent(this, typeof(DetailActivity));
             intent.PutExtra("ID", t.id.ToString());
             intent.PutExtra("code", t.name.ToString());

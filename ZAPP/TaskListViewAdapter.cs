@@ -48,10 +48,35 @@ namespace ZAPP
                 view = context.LayoutInflater.Inflate(Resource.Layout.taskListRow, null);
             }
             view.FindViewById<TextView>(Resource.Id.taskText).Text = item.description;
- 
-
+            CheckBox taskCheck = (CheckBox)view.FindViewById(Resource.Id.checkBox1);
+            taskCheck.SetOnCheckedChangeListener(null);
+            taskCheck.Checked = item.complete;
+            taskCheck.SetOnCheckedChangeListener(new CheckedChangeListener(this.context));
             return view;
         }
 
+
+        // code from http://martynnw.blogspot.com/2014/10/xamarin-android-listviews-checkboxes-on.html
+        private class CheckedChangeListener : Java.Lang.Object, CompoundButton.IOnCheckedChangeListener
+        {
+            private Activity activity;
+
+            public CheckedChangeListener(Activity activity)
+            {
+                this.activity = activity;
+            }
+            
+            public void OnCheckedChanged(CompoundButton buttonView, bool isChecked)
+            {
+                if (isChecked)
+                {
+                    string name = "check";
+                    Console.WriteLine(name);
+                } else
+                {
+                    Console.WriteLine("unchecked");
+                }
+            }
+        }
     }
 }

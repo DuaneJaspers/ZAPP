@@ -39,8 +39,21 @@ namespace ZAPP
             SetContentView(Resource.Layout.Detail);
             listView = FindViewById<ListView>(Resource.Id.taskList);
             listView.Adapter = new TaskListViewAdapter(this, records);
+            listView.ItemClick += OnListItemClick;
+
 
         }
+
+        protected void OnListItemClick(Object sender,
+                                    Android.Widget.AdapterView.ItemClickEventArgs e)
+        {
+            ListView listView = sender as ListView;
+            var itemView = listView.GetChildAt(e.Position);
+
+            CheckBox taskCheck = itemView.FindViewById<CheckBox>(Resource.Id.checkBox1);
+            taskCheck.Toggle();
+        }
+
     }
 
 }
