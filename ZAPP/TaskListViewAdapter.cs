@@ -18,11 +18,13 @@ namespace ZAPP
     {
         List<TaskRecord> items;
         Activity context;
+        bool workingHere;
 
-        public TaskListViewAdapter(Activity context, List<TaskRecord> items) : base()
+        public TaskListViewAdapter(Activity context, List<TaskRecord> items, bool workingHere ) : base()
         {
             this.context = context;
             this.items = items;
+            this.workingHere = workingHere;
         }
         public override TaskRecord this[int position]
         {
@@ -41,6 +43,7 @@ namespace ZAPP
 
         public override View GetView(int position, View convertView, ViewGroup parent)
         {
+            
             var item = items[position];
             View view = convertView;
             if (view == null)
@@ -49,6 +52,10 @@ namespace ZAPP
             }
             view.FindViewById<TextView>(Resource.Id.taskText).Text = item.description;
             CheckBox taskCheck = (CheckBox)view.FindViewById(Resource.Id.checkBox1);
+            if (workingHere)
+            {
+                taskCheck.Enabled = true;
+            }
             taskCheck.Tag = item.id;
             taskCheck.SetOnCheckedChangeListener(null);
             taskCheck.Checked = item.complete;
@@ -75,7 +82,6 @@ namespace ZAPP
                 if (isChecked)
                 {
                     string name = "check";
-                    //activity.db.toggleTaskCompleteness();
                     db.toggleTaskCompleteness(id, true);
                     Console.WriteLine(name);
                 } else

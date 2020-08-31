@@ -5,6 +5,7 @@ using System.Text;
 
 using Android.App;
 using Android.Content;
+using Android.Graphics;
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
@@ -46,6 +47,11 @@ namespace ZAPP
             if (view == null)
             {
                 view = context.LayoutInflater.Inflate(Resource.Layout.ListRow, null);
+            }
+
+            if (item.working)
+            {
+                view.FindViewById<LinearLayout>(Resource.Id.ListRow).SetBackgroundColor(Color.ParseColor("#FFCCCC"));
             }
             view.FindViewById<TextView>(Resource.Id.Text1).Text = item.name;
             view.FindViewById<TextView>(Resource.Id.Text2).Text = $"{item.adress}, {item.zipcode} {item.city}";

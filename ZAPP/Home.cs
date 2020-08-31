@@ -20,24 +20,38 @@ namespace ZAPP
         ListView listView;
         List<OverviewListRecord> records;
         ArrayList result;
+        bool workingSomewhere = false;
 
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
+            fillData();
+        }
+
+        private void fillData()
+        {
             _database db = new _database(this);
             result = db.getAllAppointments();
             records = new List<OverviewListRecord>();
             foreach (AppointmentRecord appointment in result)
             {
-                OverviewListRecord row = new OverviewListRecord(appointment.id,
-                                                appointment.client_name,
-                                                appointment.client_address,
-                                                appointment.client_zipcode,
-                                                appointment.client_city,
-                                                appointment.datetime); ;
-                records.Add(row);
+                if (String.IsNullOrEmpty(appointment.time_finish))
+                {
+                    OverviewListRecord row = new OverviewListRecord(appointment.id,
+                                                    appointment.client_name,
+                                                    appointment.client_address,
+                                                    appointment.client_zipcode,
+                                                    appointment.client_city,
+                                                    appointment.datetime,
+                                                    appointment.time_start);
+                    if (String.IsNullOrEmpty(appointment.time_start));
+                    {
+                        workingSomewhere = true;
+                    }
+                    records.Add(row);
+                }
+                
             }
-
             SetContentView(Resource.Layout.overview);
             listView = FindViewById<ListView>(Resource.Id.Overview);
             listView.Adapter = new HomeListViewAdapter(this, records);
@@ -50,9 +64,17 @@ namespace ZAPP
             var t = records[e.Position];
             var intent = new Intent(this, typeof(DetailActivity));
             intent.PutExtra("ID", t.id.ToString());
-            intent.PutExtra("code", t.name.ToString());
+            intent.PutExtra("working", t.working);
+            intent.PutExtra("workingSomewhere", workingSomewhere);
             intent.PutExtra("description", t.adress.ToString());
             StartActivityForResult(intent, 0);
+        }
+
+        protected override void OnActivityResult(int requestCode, [GeneratedEnum] Result resultCode, Intent data)
+        {
+            Console.WriteLine("activity resumed");
+            fillData();
+            base.OnActivityResult(requestCode, resultCode, data);
         }
     }
 }

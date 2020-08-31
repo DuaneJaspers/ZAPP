@@ -83,7 +83,8 @@ namespace ZAPP
             }
             else
             {
-                Console.WriteLine("no new db created.");            }
+                Console.WriteLine("no new db created.");        
+            }
         }
 
         public void nonQueryToDatabase(string command)
@@ -260,7 +261,14 @@ namespace ZAPP
 
         }
         
-
+        public void updateTimeForAppointment(int id, string columnName)
+        {
+            Resources res = this.context.Resources;
+            string command = res.GetString(Resource.String.updateTimeForAppointment);
+            string sqlFormattedDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+            command = String.Format(command, columnName, sqlFormattedDate, id.ToString());
+            nonQueryToDatabase(command);
+        }
 
         public ArrayList getAllTasksByAppointmentId(string id)
         {

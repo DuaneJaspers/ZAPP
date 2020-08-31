@@ -22,8 +22,9 @@ namespace ZAPP.Records
         public string zipcode;
         public string city;
         public string datetime;
+        public bool working;
 
-        public OverviewListRecord(int id, string name, string adress, string zipcode, string city, string datetime)
+        public OverviewListRecord(int id, string name, string adress, string zipcode, string city, string datetime, string start_time)
         {
             this.id = id;
             this.name = name;
@@ -31,6 +32,11 @@ namespace ZAPP.Records
             this.zipcode = zipcode;
             this.city = city;
             this.datetime = datetime;
+            if (String.IsNullOrEmpty(start_time))
+                this.working = false;
+            else
+                this.working = true;
+            
         }
     }
 }

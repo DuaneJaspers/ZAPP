@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_version">0.1</string>
+    <string name="app_version">0.2</string>
     <string name="app_name">ZAPP</string>
     <string name="createTableUser">
       CREATE TABLE user(id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -15,8 +15,8 @@
                       client_zipcode ntext,
                       client_city ntext,
                       client_phonenumber ntext,
-                      time_start TIME,
-                      time_finish TIME,
+                      time_start DATETIME,
+                      time_finish DATETIME,
                       comment ntext)
   </string>
   <string name="createTableTask">
@@ -31,10 +31,14 @@
     INSERT INTO user(username, password) VALUES (\'{0}\', \'{1}\')
   </string>
   <string name="addAppointmentToTable">
-    INSERT INTO appointment(id, datetime, client_name, client_address, client_zipcode, client_city, client_phonenumber, comment) VALUES (\'{0}\', \'{1}\', \'{2}\', \'{3}\', \'{4}\', \'{5}\', \'{6}\', \'{7}\')
+    INSERT INTO appointment(id, datetime, client_name, client_address, client_zipcode, client_city, client_phonenumber, comment) 
+                      VALUES (\'{0}\', \'{1}\', \'{2}\', \'{3}\', \'{4}\', \'{5}\', \'{6}\', \'{7}\')
   </string>
   <string name="addTaskToTable">
     INSERT INTO task(id, appointment_id, description, complete) VALUES ({0}, \'{1}\', \'{2}\', {3})
+  </string>
+  <string name="updateTimeForAppointment">
+    UPDATE appointment SET {0} = \'{1}\' WHERE id = {2}
   </string>
   <string name="deleteTaskById">
     DELETE FROM task WHERE id = {0} 
@@ -53,5 +57,8 @@
 </string>
   <string name="StartWorking">
     Aanmelden
-  </string>    
+  </string>  
+ <string name="StopWorking">
+    Afmelden
+  </string>  
 </resources>

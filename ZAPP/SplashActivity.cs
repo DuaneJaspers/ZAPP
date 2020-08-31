@@ -22,7 +22,7 @@ namespace ZAPP
             _database db = new _database(this);
             //db.login();
 
-            //Thread.Sleep(10000);
+            Thread.Sleep(10000);
 
             StartActivity(typeof(Home));
         }
