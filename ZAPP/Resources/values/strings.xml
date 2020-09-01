@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_version">0.2</string>
+    <string name="app_version">0.3</string>
     <string name="app_name">ZAPP</string>
     <string name="createTableUser">
       CREATE TABLE user(id INTEGER PRIMARY KEY AUTOINCREMENT,

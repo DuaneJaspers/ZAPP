@@ -30,6 +30,7 @@ namespace ZAPP
 
         private void fillData()
         {
+            workingSomewhere = false;
             _database db = new _database(this);
             result = db.getAllAppointments();
             records = new List<OverviewListRecord>();
@@ -44,7 +45,7 @@ namespace ZAPP
                                                     appointment.client_city,
                                                     appointment.datetime,
                                                     appointment.time_start);
-                    if (String.IsNullOrEmpty(appointment.time_start));
+                    if (!String.IsNullOrEmpty(appointment.time_start))
                     {
                         workingSomewhere = true;
                     }
@@ -62,6 +63,7 @@ namespace ZAPP
                                     Android.Widget.AdapterView.ItemClickEventArgs e)
         {
             var t = records[e.Position];
+            
             var intent = new Intent(this, typeof(DetailActivity));
             intent.PutExtra("ID", t.id.ToString());
             intent.PutExtra("working", t.working);

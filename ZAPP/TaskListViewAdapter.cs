@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Android.App;
+﻿using Android.App;
 using Android.Content;
-using Android.OS;
-using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using System;
+using System.Collections.Generic;
 using ZAPP.Records;
 
 namespace ZAPP
@@ -19,6 +14,7 @@ namespace ZAPP
         List<TaskRecord> items;
         Activity context;
         bool workingHere;
+        public event EventHandler<bool> TasksComplete;
 
         public TaskListViewAdapter(Activity context, List<TaskRecord> items, bool workingHere ) : base()
         {
@@ -43,7 +39,7 @@ namespace ZAPP
 
         public override View GetView(int position, View convertView, ViewGroup parent)
         {
-            
+            Console.WriteLine($"Position: {position.ToString()}, converView: {convertView}, parent: {parent}");
             var item = items[position];
             View view = convertView;
             if (view == null)
@@ -57,39 +53,42 @@ namespace ZAPP
                 taskCheck.Enabled = true;
             }
             taskCheck.Tag = item.id;
-            taskCheck.SetOnCheckedChangeListener(null);
-            taskCheck.Checked = item.complete;
-            taskCheck.SetOnCheckedChangeListener(new CheckedChangeListener(this.context));
-            return view;
-        }
-
-
-        // code from http://martynnw.blogspot.com/2014/10/xamarin-android-listviews-checkboxes-on.html
-        private class CheckedChangeListener : Java.Lang.Object, CompoundButton.IOnCheckedChangeListener
-        {
-            private Activity activity;
-
-            public CheckedChangeListener(Activity activity)
-            {
-                this.activity = activity;
-            }
+            //taskCheck.SetOnCheckedChangeListener(null);
             
-            public void OnCheckedChanged(CompoundButton buttonView, bool isChecked)
+            taskCheck.Checked = item.complete;
+            //taskCheck.SetOnCheckedChangeListener(new CheckedChangeListener(this.context));
+            taskCheck.CheckedChange += (sender, e) =>
             {
-                int id = (int)buttonView.Tag;
-                _database db = new _database(activity);
-
-                if (isChecked)
+                bool check = e.IsChecked;
+                CheckBox chk = (CheckBox)sender;
+                int id = (int)chk.Tag;
+                Console.WriteLine(id.ToString() + "is the id of the string ");
+                _database db = new _database(context);
+                item.complete = check;
+                if (check)
                 {
-                    string name = "check";
                     db.toggleTaskCompleteness(id, true);
-                    Console.WriteLine(name);
-                } else
+                }
+                else
                 {
                     db.toggleTaskCompleteness(id, false);
-                    Console.WriteLine("unchecked");
+                }
+                checkCompleteness();
+            };
+            return view;
+        }
+        public void checkCompleteness()
+        {
+            bool complete = true;
+            foreach (var item in items)
+            {
+                if (!item.complete)
+                {
+                    TasksComplete?.Invoke(this, false);
+                    return;
                 }
             }
+            TasksComplete?.Invoke(this, complete);
         }
     }
 }

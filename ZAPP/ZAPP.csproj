@@ -65,6 +65,7 @@
     <Reference Include="System.Numerics.Vectors" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Singleton.cs" />
     <Compile Include="TaskListViewAdapter.cs" />
     <Compile Include="DetailActivity.cs" />
     <Compile Include="Home.cs" />

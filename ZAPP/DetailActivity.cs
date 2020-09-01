@@ -22,18 +22,17 @@ namespace ZAPP
         List<TaskRecord> records;
         ArrayList tasks;
         string appointmentId;
+        bool workingHere = false;
+        bool workingSomewhere = false;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             this.appointmentId = Intent.GetStringExtra("ID");
-            bool working = Intent.GetBooleanExtra("working", false);
-            bool workingSomewhere = false;
-            if (!working)
-            {
-
+            this.workingHere = Intent.GetBooleanExtra("working", false);
+            // Check if working somewhere else to prevent working at two places
+            if (!workingHere)
                 workingSomewhere = Intent.GetBooleanExtra("workingSomewhere", false);
-            }
             
             _database db = new _database(this);
             tasks = db.getAllTasksByAppointmentId(appointmentId);
@@ -45,52 +44,73 @@ namespace ZAPP
 
             SetContentView(Resource.Layout.Detail);
             listView = FindViewById<ListView>(Resource.Id.taskList);
-   
-            
-            listView.Adapter = new TaskListViewAdapter(this, records, working);
-            listView.ItemClick += OnListItemClick;
 
+
+            var tasklistAdapter = new TaskListViewAdapter(this, records, workingHere);
+            tasklistAdapter.TasksComplete += OnTasksComplete;
+           
+
+            listView.Adapter = tasklistAdapter;
+            listView.ItemClick += OnListItemClick;
             Button aanmeldButton = FindViewById<Button>(Resource.Id.aanmeldButton);
-            if (working || workingSomewhere)
-            {
+            if (workingSomewhere)
                 aanmeldButton.Enabled = false;
-            }
+
+            if (workingHere)
+                aanmeldButton.Text = Resources.GetString(Resource.String.StopWorking);
+
             aanmeldButton.Click += delegate
             {
                 toggleAanmeldButton(aanmeldButton);
             };
 
         }
+
+        public void OnTasksComplete(object sender, bool complete)
+        {
+            Toast.MakeText(this, "tasks complete" + complete.ToString(), ToastLength.Long).Show();
+            FindViewById<Button>(Resource.Id.aanmeldButton).Enabled = complete;
+        }
         
 
         protected void OnListItemClick(Object sender,
                                     Android.Widget.AdapterView.ItemClickEventArgs e)
         {
-            ListView listView = sender as ListView;
-            var itemView = listView.GetChildAt(e.Position);
+            if (workingHere)
+            {
+                ListView listView = sender as ListView;
+                var itemView = listView.GetChildAt(e.Position - listView.FirstVisiblePosition);
 
-            CheckBox taskCheck = itemView.FindViewById<CheckBox>(Resource.Id.checkBox1);
-            taskCheck.Toggle();
+                CheckBox taskCheck = itemView.FindViewById<CheckBox>(Resource.Id.checkBox1);
+                taskCheck.Enabled = true;
+                taskCheck.Toggle(); 
+            }
         }
 
         protected void toggleAanmeldButton(Button aanmeldButton)
         {
-            Console.WriteLine("Button CLICKED");
             Resources res = Resources;
             _database db = new _database(this);
             if (aanmeldButton.Text == res.GetString(Resource.String.StartWorking))
             {
                 // send time to to api (maybe in updateTimeForAppointment?)
                 db.updateTimeForAppointment(int.Parse(appointmentId), "time_start");
+                workingHere = true;
                 aanmeldButton.Text = res.GetString(Resource.String.StopWorking);
                 aanmeldButton.Enabled = false;
+
             }
             else
             {
                 db.updateTimeForAppointment(int.Parse(appointmentId), "time_finish");
-                aanmeldButton.Text = "NEW CLICK WOOHOO";
+                // send time to to api (maybe in updateTimeForAppointment?)
+                // TODO
+                //
+
                 aanmeldButton.Enabled = false;
+                Toast.MakeText(this, "Appointment finished!", ToastLength.Long).Show();
                 // go back
+                Finish();
             }
         }
     }
