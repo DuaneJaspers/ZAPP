@@ -23,6 +23,7 @@ namespace ZAPP
         ArrayList tasks;
         string appointmentId;
         bool workingHere = false;
+        bool workingComplete = false;
         bool workingSomewhere = false;
 
         protected override void OnCreate(Bundle savedInstanceState)
@@ -57,7 +58,11 @@ namespace ZAPP
                 aanmeldButton.Enabled = false;
 
             if (workingHere)
+            { 
                 aanmeldButton.Text = Resources.GetString(Resource.String.StopWorking);
+                if (!workingComplete)
+                    aanmeldButton.Enabled = false;
+            }
 
             aanmeldButton.Click += delegate
             {
@@ -68,7 +73,10 @@ namespace ZAPP
 
         public void OnTasksComplete(object sender, bool complete)
         {
-            Toast.MakeText(this, "tasks complete" + complete.ToString(), ToastLength.Long).Show();
+            workingComplete = true;
+            if (complete)
+                Toast.MakeText(this, "tasks complete" + complete.ToString(), ToastLength.Long).Show();
+
             FindViewById<Button>(Resource.Id.aanmeldButton).Enabled = complete;
         }
         
@@ -84,6 +92,12 @@ namespace ZAPP
                 CheckBox taskCheck = itemView.FindViewById<CheckBox>(Resource.Id.checkBox1);
                 taskCheck.Enabled = true;
                 taskCheck.Toggle(); 
+            } else if (workingSomewhere)
+            {
+                Toast.MakeText(this, Resources.GetString(Resource.String.NotWorkingHereError), ToastLength.Long).Show();
+            } else
+            {
+                Toast.MakeText(this, Resources.GetString(Resource.String.NotWorkingError), ToastLength.Long).Show();
             }
         }
 
@@ -91,6 +105,7 @@ namespace ZAPP
         {
             Resources res = Resources;
             _database db = new _database(this);
+            // aanmeldbutton
             if (aanmeldButton.Text == res.GetString(Resource.String.StartWorking))
             {
                 // send time to to api (maybe in updateTimeForAppointment?)
@@ -98,8 +113,15 @@ namespace ZAPP
                 workingHere = true;
                 aanmeldButton.Text = res.GetString(Resource.String.StopWorking);
                 aanmeldButton.Enabled = false;
+                for (int i = 0; i < listView.ChildCount; i++)
+                {
+                    var itemView = listView.GetChildAt(i);
+                    CheckBox cb = (CheckBox)itemView.FindViewById<CheckBox>(Resource.Id.checkBox1);
+                    cb.Enabled = true;
+                }
 
             }
+            // afmeldbutton hit
             else
             {
                 db.updateTimeForAppointment(int.Parse(appointmentId), "time_finish");
