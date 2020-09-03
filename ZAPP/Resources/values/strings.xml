@@ -69,4 +69,10 @@
   <string name="NotWorkingHereError">
     Je bent op het moment ergens anders aan het werken, maak dat eerst af voordat je hier begint
   </string>
+  <string name="Tasks">
+    taken
+  </string>
+  <string name="Address">
+    adres
+  </string>
 </resources>
