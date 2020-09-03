@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+  <item
+android:iconTint="@color/green"
+       android:id="@+id/menu_address"
+       android:showAsAction="always"
+       android:titleCondensed="@string/Address"
+       android:title="@string/Address" />
+  <item
+    android:iconTint="@color/purple"
+       android:id="@+id/menu_tasks"
+       android:showAsAction="always"
+       android:title="@string/Tasks" />
+</menu>

@@ -46,7 +46,7 @@ namespace ZAPP
             {
                 view = context.LayoutInflater.Inflate(Resource.Layout.taskListRow, null);
             }
-            view.FindViewById<TextView>(Resource.Id.taskText).Text = item.description;
+            view.FindViewById<TextView>(Resource.Id.taskText).Text = (position+1).ToString().PadLeft(2, '0') + " - " + item.description;
             CheckBox taskCheck = (CheckBox)view.FindViewById(Resource.Id.checkBox1);
             if (workingHere)
             {
@@ -62,7 +62,7 @@ namespace ZAPP
                 bool check = e.IsChecked;
                 CheckBox chk = (CheckBox)sender;
                 int id = (int)chk.Tag;
-                Console.WriteLine(id.ToString() + "is the id of the string ");
+                //Console.WriteLine(id.ToString() + "is the id of the string ");
                 _database db = new _database(context);
                 item.complete = check;
                 if (check)

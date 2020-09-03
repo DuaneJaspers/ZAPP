@@ -54,7 +54,7 @@ namespace ZAPP
                 view.FindViewById<LinearLayout>(Resource.Id.ListRow).SetBackgroundColor(Color.ParseColor("#FFCCCC"));
             }
             view.FindViewById<TextView>(Resource.Id.Text1).Text = item.name;
-            view.FindViewById<TextView>(Resource.Id.Text2).Text = $"{item.adress}, {item.zipcode} {item.city}";
+            view.FindViewById<TextView>(Resource.Id.Text2).Text = $"{item.address}, {item.zipcode} {item.city}";
             view.FindViewById<TextView>(Resource.Id.Text3).Text = Convert.ToDateTime(item.datetime).ToString("dd-MM-yyyy");
             view.FindViewById<TextView>(Resource.Id.Text4).Text = Convert.ToDateTime(item.datetime).ToString("HH:mm")+" uur";
 

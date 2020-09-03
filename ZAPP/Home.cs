@@ -41,6 +41,7 @@ namespace ZAPP
                     OverviewListRecord row = new OverviewListRecord(appointment.id,
                                                     appointment.client_name,
                                                     appointment.client_address,
+                                                    appointment.client_phonenumber,
                                                     appointment.client_zipcode,
                                                     appointment.client_city,
                                                     appointment.datetime,
@@ -68,7 +69,7 @@ namespace ZAPP
             intent.PutExtra("ID", t.id.ToString());
             intent.PutExtra("working", t.working);
             intent.PutExtra("workingSomewhere", workingSomewhere);
-            intent.PutExtra("description", t.adress.ToString());
+            intent.PutExtra("description", t.address.ToString());
             StartActivityForResult(intent, 0);
         }
 

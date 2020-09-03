@@ -111,30 +111,53 @@ namespace ZAPP
 
         }
 
-        //public void getUserRecordFromDatabase(string command)
-        //{
-        //    using (var conn = new SqliteConnection(this.connectionString))
-        //    {
-        //        conn.Open();
-        //        using (var cmd = conn.CreateCommand())
-        //        {
-        //            // Table data
-        //            cmd.CommandText = command;
-        //            cmd.CommandType = CommandType.Text;
-        //            SqliteDataReader record = cmd.ExecuteReader();
-        //            if (record.Read())
-        //            {
-        //                UserRecord user = new UserRecord(record);
-        //            } else
-        //            {
-        //                Console.WriteLine("No user found...");
-        //                // TODO: send loginrequest to server, if login, save user 
-        //            }
-        //        }
-        //        conn.Close();
+        public AppointmentRecord getAppointmentById(string id)
+        {
+            AppointmentRecord appointmentRecord;
 
-        //    }
-        //}
+            Resources res = this.context.Resources;
+            string command = res.GetString(Resource.String.getAppointmentById);
+            command = String.Format(command, id);
+            using (var conn = new SqliteConnection(connectionstring))
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    // Table data
+                    cmd.CommandText = command;
+                    cmd.CommandType = CommandType.Text;
+                    SqliteDataReader record = cmd.ExecuteReader();
+                    record.Read();
+                    appointmentRecord = new AppointmentRecord(record);
+                    record.Close();
+                }
+                conn.Close();
+            }
+            return appointmentRecord;
+
+            //using (var conn = new SqliteConnection(this.connectionString))
+            //{
+            //    conn.Open();
+            //    using (var cmd = conn.CreateCommand())
+            //    {
+            //        // Table data
+            //        cmd.CommandText = command;
+            //        cmd.CommandType = CommandType.Text;
+            //        SqliteDataReader record = cmd.ExecuteReader();
+            //        if (record.Read())
+            //        {
+            //            UserRecord user = new UserRecord(record);
+            //        }
+            //        else
+            //        {
+            //            Console.WriteLine("No user found...");
+            //            // TODO: send loginrequest to server, if login, save user 
+            //        }
+            //    }
+            //    conn.Close();
+
+            //}
+        }
 
         public void saveAppointmentRecord(AppointmentRecord record)
         {

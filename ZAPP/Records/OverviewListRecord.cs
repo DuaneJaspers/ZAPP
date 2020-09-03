@@ -18,17 +18,19 @@ namespace ZAPP.Records
     {
         public int id;
         public string name;
-        public string adress;
+        public string address;
+        public string phonenumber;
         public string zipcode;
         public string city;
         public string datetime;
         public bool working;
 
-        public OverviewListRecord(int id, string name, string adress, string zipcode, string city, string datetime, string start_time)
+        public OverviewListRecord(int id, string name, string address, string phonenumber, string zipcode, string city, string datetime, string start_time)
         {
             this.id = id;
             this.name = name;
-            this.adress = adress;
+            this.address = address;
+            this.phonenumber = phonenumber;
             this.zipcode = zipcode;
             this.city = city;
             this.datetime = datetime;

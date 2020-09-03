@@ -49,6 +49,9 @@
   <string name="getAllAppointments">
     SELECT * FROM appointment ORDER BY datetime ASC
   </string>
+  <string name="getAppointmentById">
+    SELECT * FROM appointment WHERE id = {0}
+  </string>
   <string name="getAllTasksByAppointmentId">
     SELECT * FROM task WHERE appointment_id = {0} 
   </string>

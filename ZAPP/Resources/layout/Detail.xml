@@ -6,10 +6,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <LinearLayout
+        android:id="@+id/detailLayout"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/aanmeldButton">
+        android:layout_above="@+id/aanmeldButton"
+        >
     <ImageView
         android:background="@android:color/white"
         android:src="@drawable/zapplogo"
@@ -17,12 +19,32 @@
         android:layout_height="150dp"
         android:id="@+id/imageView1"
         android:contentDescription="@string/logoDescription"/>
-        <ListView
-        android:minWidth="25px"
-        android:minHeight="25px"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/taskList" />
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewPagerDetails"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <android.support.design.widget.TabLayout
+            android:minWidth="25px"
+            android:minHeight="25px"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tabLayout1" />
+<!--
+            <android.support.v4.view.PagerTitleStrip
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="top" 
+                />-->
+        </android.support.v4.view.ViewPager>
+           
+
+            <ListView
+                android:minWidth="25px"
+                android:minHeight="25px"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/taskList" />
+        
         
         </LinearLayout>
     <Button

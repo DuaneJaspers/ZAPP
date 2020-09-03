@@ -8,6 +8,7 @@ using Android.Widget;
 namespace ZAPP
 {
     using System.Threading;
+    using System.Threading.Tasks;
     using Android.App;
     using Android.OS;
 
@@ -19,12 +20,24 @@ namespace ZAPP
         {
             base.OnCreate(bundle);
 
+        }
+
+        protected override void OnResume()
+        {
+            base.OnResume();
+            Task StartUpWork = new Task( () => { Startup();  });
+            StartActivity(typeof(Home));
+    }
+
+        async void Startup()
+        {
+
             _database db = new _database(this);
+            await Task.Delay(200);
             //db.login();
 
-            Thread.Sleep(10000);
 
-            StartActivity(typeof(Home));
+            
         }
 
     }
