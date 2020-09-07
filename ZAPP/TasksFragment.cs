@@ -17,20 +17,22 @@ namespace ZAPP
 {
     public class TasksFragment : Android.Support.V4.App.ListFragment
     {
-        bool workingHere = false;
-        bool workingSomewhere = false;
-        bool workingComplete = false;
+        //bool workingHere = false;
+        //bool workingSomewhere = false;
+        //bool workingComplete = false;
+        string appointmentId;
 
         public override void OnActivityCreated(Bundle savedInstanceState)
         {
             base.OnActivityCreated(savedInstanceState);
             // fillTasksTab()
             _database db = new _database(Activity);
-            var tasks = db.getAllTasksByAppointmentId(Arguments.GetString("ID"));
+            appointmentId = Arguments.GetString("ID");
+            var tasks = db.getAllTasksByAppointmentId(appointmentId);
             var records = new List<TaskRecord>();
-            workingHere = Arguments.GetBoolean("workingHere");
-            workingSomewhere = Arguments.GetBoolean("workingSomewhere");
-            workingComplete = Arguments.GetBoolean("workingComplete");
+            //workingHere = Arguments.GetBoolean("workingHere");
+            //workingSomewhere = Arguments.GetBoolean("workingSomewhere");
+            //workingComplete = Arguments.GetBoolean("workingComplete");
 
             foreach (TaskRecord taskRecord in tasks)
             {
@@ -40,7 +42,7 @@ namespace ZAPP
 
             //listView = FindViewById<ListView>(Resource.Id.taskList);
 
-            var tasklistAdapter = new TaskListViewAdapter(Activity, records, workingHere);
+            var tasklistAdapter = new TaskListViewAdapter(Activity, records, appointmentId);
             tasklistAdapter.TasksComplete += OnTasksComplete;
 
 
@@ -49,7 +51,7 @@ namespace ZAPP
 
         public override void OnListItemClick(ListView l, View v, int position, long id)
         {
-            if (workingHere)
+            if (Singleton.currentlyWorking == appointmentId)
             {
                 var itemView = l.GetChildAt(position - l.FirstVisiblePosition);
 
@@ -57,7 +59,7 @@ namespace ZAPP
                 taskCheck.Enabled = true;
                 taskCheck.Toggle();
             }
-            else if (workingSomewhere)
+            else if (Singleton.currentlyWorking != null)
             {
                 Toast.MakeText(Activity, Resources.GetString(Resource.String.NotWorkingHereError), ToastLength.Long).Show();
             }
@@ -68,7 +70,7 @@ namespace ZAPP
         }
         public void OnTasksComplete(object sender, bool complete)
         {
-            workingComplete = true;
+            Singleton.tasksComplete = complete;
             if (complete)
                 Toast.MakeText(Activity, "tasks complete" + complete.ToString(), ToastLength.Long).Show();
 

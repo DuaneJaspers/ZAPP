@@ -27,22 +27,14 @@ namespace ZAPP
            Resource.String.Tasks,
            Resource.String.Address
         };
-        int[] layouts = {Resource.Layout.tasks, Resource.Layout.address};
         AppointmentRecord appointmentRecord;
         Android.Support.V4.App.FragmentManager fragmentManager;
-        bool workingHere = false;
-        bool workingSomewhere = false;
-        bool workingComplete = false;
 
-
-        public DetailPagerAdapter(Activity context,  Android.Support.V4.App.FragmentManager fragmentManager, AppointmentRecord appointmentRecord, bool workingHere, bool workingComplete, bool workingSomewhere): base(fragmentManager)
+        public DetailPagerAdapter(Activity context,  Android.Support.V4.App.FragmentManager fragmentManager, AppointmentRecord appointmentRecord): base(fragmentManager)
         {
             this.fragmentManager = fragmentManager;
             this.context = context;
             this.appointmentRecord = appointmentRecord;
-            this.workingHere = workingHere;
-            this.workingComplete = workingComplete;
-            this.workingSomewhere = workingSomewhere;
 
         }
 
@@ -56,9 +48,6 @@ namespace ZAPP
         {
 
             Bundle args = new Bundle();
-            args.PutBoolean("workingHere", workingHere);
-            args.PutBoolean("workingComplete", workingComplete);
-            args.PutBoolean("workingSomewhere", workingSomewhere);
 
             args.PutString("ID", appointmentRecord.id.ToString());
             if (position == 1)
@@ -80,7 +69,7 @@ namespace ZAPP
         {
             get
             {
-                return layouts.Count();
+                return titles.Count();
             }
         }
 

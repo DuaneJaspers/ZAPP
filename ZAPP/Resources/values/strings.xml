@@ -78,4 +78,19 @@
   <string name="Address">
     adres
   </string>
+<string name="addressTab">
+  {0} \n
+  {1} \n
+  \n
+  \n
+  \n
+  Telefoon : {2} \n
+  \n
+  \n
+  \n
+  \n
+  \n
+  \n
+  Telefoon Planning: 046-87654321
+</string>
 </resources>

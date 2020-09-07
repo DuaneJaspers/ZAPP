@@ -13,14 +13,14 @@ namespace ZAPP
     {
         List<TaskRecord> items;
         Activity context;
-        bool workingHere;
         public event EventHandler<bool> TasksComplete;
+        public string appointmentId;
 
-        public TaskListViewAdapter(Activity context, List<TaskRecord> items, bool workingHere ) : base()
+        public TaskListViewAdapter(Activity context, List<TaskRecord> items, string appointmentId ) : base()
         {
             this.context = context;
             this.items = items;
-            this.workingHere = workingHere;
+            this.appointmentId = appointmentId;
         }
         public override TaskRecord this[int position]
         {
@@ -48,21 +48,18 @@ namespace ZAPP
             }
             view.FindViewById<TextView>(Resource.Id.taskText).Text = (position+1).ToString().PadLeft(2, '0') + " - " + item.description;
             CheckBox taskCheck = (CheckBox)view.FindViewById(Resource.Id.checkBox1);
-            if (workingHere)
-            {
+
+            if (Singleton.currentlyWorking == appointmentId)
                 taskCheck.Enabled = true;
-            }
+
             taskCheck.Tag = item.id;
-            //taskCheck.SetOnCheckedChangeListener(null);
             
             taskCheck.Checked = item.complete;
-            //taskCheck.SetOnCheckedChangeListener(new CheckedChangeListener(this.context));
             taskCheck.CheckedChange += (sender, e) =>
             {
                 bool check = e.IsChecked;
                 CheckBox chk = (CheckBox)sender;
                 int id = (int)chk.Tag;
-                //Console.WriteLine(id.ToString() + "is the id of the string ");
                 _database db = new _database(context);
                 item.complete = check;
                 if (check)

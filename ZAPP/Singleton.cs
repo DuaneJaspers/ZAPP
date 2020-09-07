@@ -15,7 +15,9 @@ namespace ZAPP
     class Singleton
     {
         private static readonly Singleton SingletonInstance = new Singleton();
-        public static int tasksRemaining { get; set; }
+        public static string currentlyWorking { set; get; }
+        public static bool tasksComplete { set; get; }
+
         static Singleton()
         {
         }

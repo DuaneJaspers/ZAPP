@@ -10,6 +10,7 @@ using Android.Runtime;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
+using Xamarin.Essentials;
 using ZAPP.Records;
 
 namespace ZAPP
@@ -18,7 +19,7 @@ namespace ZAPP
     {
         public string appointment_id => Arguments.GetString("appointment_id");
         public string address => Arguments.GetString("address");
-        public string zipcode => Arguments.GetString("zipcxode");
+        public string zipcode => Arguments.GetString("zipcode");
         public string phonenumber => Arguments.GetString("phonenumber");
 
         public static AddressFragment NewInstance(AppointmentRecord appointmentRecord)
@@ -41,16 +42,10 @@ namespace ZAPP
             var textView = new TextView(Activity);
             var padding = Convert.ToInt32(TypedValue.ApplyDimension(ComplexUnitType.Dip, 4, Activity.Resources.DisplayMetrics));
             textView.SetPadding(padding, padding, padding, padding);
-            textView.TextSize = 24;
-            textView.Text = $"Address: {address} {zipcode} \n" +
-                $"\n" +
-                $"\n" +
-                $"\n" +
-                $"\n" +
-                $"\n" +
-                $"\n" +
-                $"Telefoon :{phonenumber}";
-
+            textView.TextSize = 56;
+            string addressTab = Resources.GetString(Resource.String.addressTab);
+            addressTab = String.Format(addressTab, address, zipcode, phonenumber);
+            textView.Text = addressTab;
 
             var scroller = new ScrollView(Activity);
             scroller.AddView(textView);
