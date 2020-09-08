@@ -14,8 +14,9 @@ using ZAPP.Records;
 using Android.Content.Res;
 using Android.Support.V4.View;
 using Android.Support.V4.App;
+using ZAPP.Adapters;
 
-namespace ZAPP
+namespace ZAPP.Activities
 {
     [Activity(Label = "DetailActivity")]
     public class DetailActivity : Android.Support.V4.App.FragmentActivity
@@ -25,8 +26,6 @@ namespace ZAPP
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
-           
-
             base.OnCreate(savedInstanceState);
         
             this.appointmentId = Intent.GetStringExtra("ID");
@@ -37,7 +36,7 @@ namespace ZAPP
             SetContentView(Resource.Layout.Detail);
 
             ViewPager viewPager = FindViewById<ViewPager>(Resource.Id.viewPagerDetails);
-            viewPager.Adapter = new DetailPagerAdapter(this, this.SupportFragmentManager, appointmentRecord);
+            viewPager.Adapter = new DetailViewPagerAdapter(this, this.SupportFragmentManager, appointmentRecord);
 
 
             Button aanmeldButton = FindViewById<Button>(Resource.Id.aanmeldButton);
@@ -84,7 +83,7 @@ namespace ZAPP
 
                 // reload the tasklist to enable checkboxes
                 ViewPager viewPager = FindViewById<ViewPager>(Resource.Id.viewPagerDetails);
-                viewPager.Adapter = new DetailPagerAdapter(this, this.SupportFragmentManager, appointmentRecord);
+                viewPager.Adapter = new DetailViewPagerAdapter(this, this.SupportFragmentManager, appointmentRecord);
 
 
             }

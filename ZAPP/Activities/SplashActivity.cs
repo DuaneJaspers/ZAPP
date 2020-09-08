@@ -5,12 +5,13 @@ using Android.Support.V7.App;
 using Android.Runtime;
 using Android.Widget;
 
-namespace ZAPP
+namespace ZAPP.Activities
 {
     using System.Threading;
     using System.Threading.Tasks;
     using Android.App;
     using Android.OS;
+    using ZAPP.Records;
 
     [Activity(Theme = "@style/Theme.Splash", MainLauncher = true,
                                              NoHistory = true)]
@@ -25,19 +26,34 @@ namespace ZAPP
         protected override void OnResume()
         {
             base.OnResume();
+
             Task StartUpWork = new Task( () => { Startup();  });
-            StartActivity(typeof(Home));
-    }
+            StartUpWork.Start();
+            //StartActivity(typeof(Home));
+            //StartActivity(typeof(LoginActivity));
+
+        }
 
         async void Startup()
         {
 
             _database db = new _database(this);
+            string UserToken = Singleton.userToken;
+            if (String.IsNullOrEmpty(Singleton.userToken))
+            {
+                db.getUserToken();
+                if (String.IsNullOrEmpty(Singleton.userToken))
+                {
+                    StartActivity(typeof(LoginActivity));
+                    return;
+                }
+            }
             await Task.Delay(200);
+            StartActivity(typeof(Home));
             //db.login();
 
 
-            
+
         }
 
     }

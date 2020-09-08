@@ -12,8 +12,10 @@ using Android.Util;
 using Android.Views;
 using Android.Widget;
 using ZAPP.Records;
+using ZAPP.Adapters;
 
-namespace ZAPP
+
+namespace ZAPP.Fragments
 {
     public class TasksFragment : Android.Support.V4.App.ListFragment
     {
@@ -30,9 +32,6 @@ namespace ZAPP
             appointmentId = Arguments.GetString("ID");
             var tasks = db.getAllTasksByAppointmentId(appointmentId);
             var records = new List<TaskRecord>();
-            //workingHere = Arguments.GetBoolean("workingHere");
-            //workingSomewhere = Arguments.GetBoolean("workingSomewhere");
-            //workingComplete = Arguments.GetBoolean("workingComplete");
 
             foreach (TaskRecord taskRecord in tasks)
             {

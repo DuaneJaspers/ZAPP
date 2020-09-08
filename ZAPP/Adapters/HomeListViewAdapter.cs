@@ -12,7 +12,7 @@ using Android.Views;
 using Android.Widget;
 using ZAPP.Records;
 
-namespace ZAPP
+namespace ZAPP.Adapters
 {
     [Activity (Label = "HomeListViewAdapter")]
     class HomeListViewAdapter : BaseAdapter<OverviewListRecord>

@@ -11,8 +11,10 @@ using Android.Views;
 using Android.Widget;
 using System.Collections;
 using ZAPP.Records;
+using ZAPP.Adapters;
 
-namespace ZAPP
+
+namespace ZAPP.Activities
 {
     [Activity(Label = "HomeActivity")]
     class Home : Activity
@@ -20,18 +22,18 @@ namespace ZAPP
         ListView listView;
         List<OverviewListRecord> records;
         ArrayList result;
-        bool workingSomewhere = false;
 
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-            fillData();
+
+            syncDatabase();
         }
 
         private void fillData()
         {
-            workingSomewhere = false;
             _database db = new _database(this);
+            //db.syncDatabase();
             result = db.getAllAppointments();
             records = new List<OverviewListRecord>();
             foreach (AppointmentRecord appointment in result)
@@ -47,14 +49,17 @@ namespace ZAPP
                                                     appointment.datetime,
                                                     appointment.time_start);
                     if (!String.IsNullOrEmpty(appointment.time_start))
-                    {
-                        workingSomewhere = true;
-                    }
+                        Singleton.currentlyWorking = appointment.id.ToString();
                     records.Add(row);
                 }
                 
             }
             SetContentView(Resource.Layout.overview);
+            Android.Support.V4.Widget.SwipeRefreshLayout pullToRefresh = FindViewById<Android.Support.V4.Widget.SwipeRefreshLayout>(Resource.Id.pullToRefresh);
+            pullToRefresh.Refresh += delegate (object sender, System.EventArgs e)
+            {
+                syncDatabase();
+            };
             listView = FindViewById<ListView>(Resource.Id.Overview);
             listView.Adapter = new HomeListViewAdapter(this, records);
             listView.ItemClick += OnListItemClick;
@@ -68,7 +73,6 @@ namespace ZAPP
             var intent = new Intent(this, typeof(DetailActivity));
             intent.PutExtra("ID", t.id.ToString());
             intent.PutExtra("working", t.working);
-            intent.PutExtra("workingSomewhere", workingSomewhere);
             intent.PutExtra("description", t.address.ToString());
             StartActivityForResult(intent, 0);
         }
@@ -78,6 +82,13 @@ namespace ZAPP
             Console.WriteLine("activity resumed");
             fillData();
             base.OnActivityResult(requestCode, resultCode, data);
+        }
+
+        private void syncDatabase()
+        {
+            _database db = new _database(this);
+            db.syncDatabase();
+            fillData();
         }
     }
 }

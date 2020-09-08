@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using ZAPP.Records;
 
-namespace ZAPP
+namespace ZAPP.Adapters
 {
     [Activity(Label = "TaskListViewAdapter")]
     public class TaskListViewAdapter : BaseAdapter<TaskRecord>
@@ -42,10 +42,10 @@ namespace ZAPP
             Console.WriteLine($"Position: {position.ToString()}, converView: {convertView}, parent: {parent}");
             var item = items[position];
             View view = convertView;
+
             if (view == null)
-            {
                 view = context.LayoutInflater.Inflate(Resource.Layout.taskListRow, null);
-            }
+
             view.FindViewById<TextView>(Resource.Id.taskText).Text = (position+1).ToString().PadLeft(2, '0') + " - " + item.description;
             CheckBox taskCheck = (CheckBox)view.FindViewById(Resource.Id.checkBox1);
 
@@ -62,14 +62,7 @@ namespace ZAPP
                 int id = (int)chk.Tag;
                 _database db = new _database(context);
                 item.complete = check;
-                if (check)
-                {
-                    db.toggleTaskCompleteness(id, true);
-                }
-                else
-                {
-                    db.toggleTaskCompleteness(id, false);
-                }
+                db.toggleTaskCompleteness(id, check);
                 checkCompleteness();
             };
             return view;

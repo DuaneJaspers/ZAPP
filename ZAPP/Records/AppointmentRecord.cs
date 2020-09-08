@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Json;
 using System.Linq;
@@ -27,9 +28,10 @@ namespace ZAPP.Records
         public string time_start;
         public string time_finish;
         public string comment;
+        public ArrayList taskRecords;
 
 
-        public AppointmentRecord(JsonValue record)
+        public AppointmentRecord(JsonValue record, ArrayList Tasks)
         {
             this.id = (int)(Int64)record["id"];
             this.datetime = (string)record["datetime"];
@@ -39,6 +41,7 @@ namespace ZAPP.Records
             this.client_city = (string)@record["client"]["city"];
             this.client_phonenumber = (string)@record["client"]["phonenumber"];
             this.comment = (string)@record["comment"];
+            this.taskRecords = Tasks;
         }
 
         public AppointmentRecord(SqliteDataReader record)
@@ -53,6 +56,16 @@ namespace ZAPP.Records
             this.time_start = record["time_start"].ToString();
             this.time_finish = record["time_finish"].ToString();
             this.comment = (string)record["comment"];
+        }
+
+        public override bool Equals(object obj)
+        {
+            if ((obj == null) || !this.GetType().Equals(obj.GetType()))
+            {
+                return false;
+            }
+            AppointmentRecord appointmentRecord = (AppointmentRecord)obj;
+            return (appointmentRecord.id == id);
         }
     }
 }

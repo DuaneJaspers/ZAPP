@@ -18,6 +18,8 @@ namespace ZAPP
         public static string currentlyWorking { set; get; }
         public static bool tasksComplete { set; get; }
 
+        public static string userToken { set; get; }
+
         static Singleton()
         {
         }

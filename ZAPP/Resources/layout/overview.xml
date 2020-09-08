@@ -12,11 +12,18 @@
         android:layout_height="150dp"
         android:id="@+id/imageView1"
         android:contentDescription="@string/logoDescription"/>
-        <ListView
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/pullToRefresh"  >
+            <ListView
         android:minWidth="25px"
         android:minHeight="25px"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/Overview" />
+        android:id="@+id/Overview"/>
+    </android.support.v4.widget.SwipeRefreshLayout>
+      
+
 </LinearLayout>
 

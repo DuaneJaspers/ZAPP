@@ -43,5 +43,15 @@ namespace ZAPP.Records
             this.description = description;
             this.complete = complete;
         }
+
+        public override bool Equals(object obj)
+        {
+            if ((obj == null) || !this.GetType().Equals(obj.GetType()))
+            {
+                return false;
+            }
+            TaskRecord taskRecord = (TaskRecord)obj;
+            return (taskRecord.appointment_id == appointment_id && taskRecord.description == description);
+        }
     }
 }

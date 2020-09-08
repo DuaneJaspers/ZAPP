@@ -2,10 +2,7 @@
     <string name="app_version">0.3</string>
     <string name="app_name">ZAPP</string>
     <string name="createTableUser">
-      CREATE TABLE user(id INTEGER PRIMARY KEY AUTOINCREMENT,
-                      username ntext, 
-                      password ntext,
-                      security_token ntext)
+      CREATE TABLE user(user_token ntext)
     </string>
   <string name="createTableAppointment">
     CREATE TABLE appointment(id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -27,8 +24,8 @@
     FOREIGN KEY(appointment_id) REFERENCES appointment(id)
     )
   </string>
-  <string name="addItemToTableUser">
-    INSERT INTO user(username, password) VALUES (\'{0}\', \'{1}\')
+  <string name="saveUserToken">
+    INSERT INTO user(user_token) VALUES (\'{0}\')
   </string>
   <string name="addAppointmentToTable">
     INSERT INTO appointment(id, datetime, client_name, client_address, client_zipcode, client_city, client_phonenumber, comment) 
@@ -38,13 +35,32 @@
     INSERT INTO task(id, appointment_id, description, complete) VALUES ({0}, \'{1}\', \'{2}\', {3})
   </string>
   <string name="updateTimeForAppointment">
-    UPDATE appointment SET {0} = \'{1}\' WHERE id = {2}
+    UPDATE appointment SET {1} = \'{2}\' WHERE id = {0}
+  </string>
+  <string name="updateAppointment">
+    UPDATE appointment SET datetime = \'{1}\'
+                            client_name = \'{2}\'
+                            client_address = \'{3}\'
+                            client_zipcode = \'{4}\'
+                            client_city = \'{5}\'
+                            client_phonenumber = \'{6}\'
+                            comment = \'{7}\'
+     WHERE id = {0}
+  </string>
+  <string name="deleteAppointmentById">
+    DELETE FROM appointment WHERE id = {0}
   </string>
   <string name="deleteTaskById">
     DELETE FROM task WHERE id = {0} 
   </string>
+  <string name="deleteTaskByAppointmentId">
+    DELETE FROM task WHERE appointment_id = {0}
+  </string>
   <string name="getTaskById">
     SELECT * FROM task WHERE id = {0}
+  </string>
+  <string name="getUserToken">
+    SELECT * FROM user
   </string>
   <string name="getAllAppointments">
     SELECT * FROM appointment ORDER BY datetime ASC
@@ -72,25 +88,25 @@
   <string name="NotWorkingHereError">
     Je bent op het moment ergens anders aan het werken, maak dat eerst af voordat je hier begint
   </string>
-  <string name="Tasks">
-    taken
-  </string>
-  <string name="Address">
-    adres
-  </string>
-<string name="addressTab">
+  <string name="Tasks">taken</string>
+  <string name="Address">adres</string>
+  <string name="Comment">opmerking</string>
+
+  <string name="addressTab">
   {0} \n
   {1} \n
   \n
   \n
-  \n
   Telefoon : {2} \n
   \n
-  \n
-  \n
-  \n
-  \n
+
   \n
   Telefoon Planning: 046-87654321
 </string>
+  <string name="Password">wachtwoord</string>
+  <string name="Username">gebruikersnaam</string>
+  <string name="LoginWrongError">Gebruiksernaam en wachtwoord combinatie is incorrect</string>
+  <string name="LoginEmptyError">Vul een gebruikersnaam én wachtwoord in om in te loggen</string>
+
+
 </resources>

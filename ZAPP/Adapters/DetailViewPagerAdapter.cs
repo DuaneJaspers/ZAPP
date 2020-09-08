@@ -16,21 +16,24 @@ using Android.Views;
 using Android.Widget;
 using Java.Lang;
 using ZAPP.Records;
+using ZAPP.Fragments;
 
-namespace ZAPP
+
+namespace ZAPP.Adapters
 {
-    class DetailPagerAdapter : Android.Support.V4.App.FragmentPagerAdapter
+    class DetailViewPagerAdapter : Android.Support.V4.App.FragmentPagerAdapter
     {
         Context context;
         int[] titles =
         {
            Resource.String.Tasks,
-           Resource.String.Address
+           Resource.String.Address,
+           Resource.String.Comment
         };
         AppointmentRecord appointmentRecord;
         Android.Support.V4.App.FragmentManager fragmentManager;
 
-        public DetailPagerAdapter(Activity context,  Android.Support.V4.App.FragmentManager fragmentManager, AppointmentRecord appointmentRecord): base(fragmentManager)
+        public DetailViewPagerAdapter(Activity context,  Android.Support.V4.App.FragmentManager fragmentManager, AppointmentRecord appointmentRecord): base(fragmentManager)
         {
             this.fragmentManager = fragmentManager;
             this.context = context;
@@ -50,16 +53,22 @@ namespace ZAPP
             Bundle args = new Bundle();
 
             args.PutString("ID", appointmentRecord.id.ToString());
-            if (position == 1)
+            if (position == 2)
             {
                 return (Android.Support.V4.App.Fragment)
-                    AddressFragment.NewInstance(appointmentRecord);
+                    ScrollViewFragment.NewInstance(appointmentRecord, "comment");
+            }
+            else if (position == 1)
+            {
+                return (Android.Support.V4.App.Fragment)
+                    ScrollViewFragment.NewInstance(appointmentRecord, "address");
             }
             else
             {
-                    Android.Support.V4.App.Fragment taskFragment = new TasksFragment();
-                    taskFragment.Arguments = args;
-                    return taskFragment;
+                Android.Support.V4.App.Fragment taskFragment = new TasksFragment();
+                
+                taskFragment.Arguments = args;
+                return taskFragment;
             }
 
         }

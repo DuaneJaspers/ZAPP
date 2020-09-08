@@ -65,22 +65,23 @@
     <Reference Include="System.Numerics.Vectors" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AddressFragment.cs" />
-    <Compile Include="DetailPagerAdapter.cs" />
+    <Compile Include="Fragments\ScrollViewFragment.cs" />
+    <Compile Include="Adapters\DetailViewPagerAdapter.cs" />
+    <Compile Include="Activities\LoginActivity.cs" />
     <Compile Include="Singleton.cs" />
-    <Compile Include="DetailActivity.cs" />
-    <Compile Include="Home.cs" />
-    <Compile Include="HomeListViewAdapter.cs" />
+    <Compile Include="Activities\DetailActivity.cs" />
+    <Compile Include="Activities\Home.cs" />
+    <Compile Include="Adapters\HomeListViewAdapter.cs" />
     <None Include="JSON\fakeTask.JSON" />
     <Compile Include="Records\OverviewListRecord.cs" />
     <Compile Include="Records\AppointmentRecord.cs" />
     <Compile Include="Records\TaskRecord.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SplashActivity.cs" />
+    <Compile Include="Activities\SplashActivity.cs" />
     <Compile Include="Records\UserRecord.cs" />
-    <Compile Include="TaskListViewAdapter.cs" />
-    <Compile Include="TasksFragment.cs" />
+    <Compile Include="Adapters\TaskListViewAdapter.cs" />
+    <Compile Include="Fragments\TasksFragment.cs" />
     <Compile Include="_database.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -159,6 +160,12 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\TasksListView.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\Login.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\values\values.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
