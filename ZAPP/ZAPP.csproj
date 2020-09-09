@@ -38,6 +38,12 @@
     <AndroidUseSharedRuntime>True</AndroidUseSharedRuntime>
     <AndroidLinkMode>None</AndroidLinkMode>
     <EmbedAssembliesIntoApk>False</EmbedAssembliesIntoApk>
+    <AotAssemblies>false</AotAssemblies>
+    <EnableLLVM>false</EnableLLVM>
+    <AndroidEnableProfiledAot>false</AndroidEnableProfiledAot>
+    <BundleAssemblies>false</BundleAssemblies>
+    <MandroidI18n />
+    <AndroidSupportedAbis />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>True</DebugSymbols>
@@ -57,6 +63,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Json" />
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
@@ -68,10 +75,13 @@
     <Compile Include="Fragments\ScrollViewFragment.cs" />
     <Compile Include="Adapters\DetailViewPagerAdapter.cs" />
     <Compile Include="Activities\LoginActivity.cs" />
+    <Compile Include="Services\ApiService.cs" />
     <Compile Include="Singleton.cs" />
     <Compile Include="Activities\DetailActivity.cs" />
     <Compile Include="Activities\Home.cs" />
     <Compile Include="Adapters\HomeListViewAdapter.cs" />
+    <None Include="JSON\appointment.collection.json" />
+    <None Include="JSON\client.collection.json" />
     <None Include="JSON\fakeTask.JSON" />
     <Compile Include="Records\OverviewListRecord.cs" />
     <Compile Include="Records\AppointmentRecord.cs" />
@@ -121,6 +131,9 @@
     <AndroidResource Include="Resources\drawable\splash_background.xml" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>12.0.3</Version>
+    </PackageReference>
     <PackageReference Include="Polly">
       <Version>7.2.1</Version>
     </PackageReference>
@@ -166,6 +179,10 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\values\values.xml" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <AndroidResource Include="Resources\xml\network_security_config.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

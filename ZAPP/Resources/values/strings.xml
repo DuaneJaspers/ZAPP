@@ -1,6 +1,7 @@
 <resources>
     <string name="app_version">0.3</string>
     <string name="app_name">ZAPP</string>
+  <string name="api_token">c7b9e42872a9ace97f577dc4699c18</string>
     <string name="createTableUser">
       CREATE TABLE user(user_token ntext)
     </string>

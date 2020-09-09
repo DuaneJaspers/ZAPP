@@ -4338,71 +4338,74 @@ namespace ZAPP
 			// aapt resource value: 0x7F0E0033
 			public const int addTaskToTable = 2131623987;
 			
-			// aapt resource value: 0x7F0E0037
-			public const int appbar_scrolling_view_behavior = 2131623991;
-			
 			// aapt resource value: 0x7F0E0035
-			public const int app_name = 2131623989;
-			
-			// aapt resource value: 0x7F0E0036
-			public const int app_version = 2131623990;
+			public const int api_token = 2131623989;
 			
 			// aapt resource value: 0x7F0E0038
-			public const int bottom_sheet_behavior = 2131623992;
+			public const int appbar_scrolling_view_behavior = 2131623992;
+			
+			// aapt resource value: 0x7F0E0036
+			public const int app_name = 2131623990;
+			
+			// aapt resource value: 0x7F0E0037
+			public const int app_version = 2131623991;
 			
 			// aapt resource value: 0x7F0E0039
-			public const int character_counter_content_description = 2131623993;
+			public const int bottom_sheet_behavior = 2131623993;
 			
 			// aapt resource value: 0x7F0E003A
-			public const int character_counter_pattern = 2131623994;
+			public const int character_counter_content_description = 2131623994;
+			
+			// aapt resource value: 0x7F0E003B
+			public const int character_counter_pattern = 2131623995;
 			
 			// aapt resource value: 0x7F0E0001
 			public const int Comment = 2131623937;
 			
-			// aapt resource value: 0x7F0E003B
-			public const int createTableAppointment = 2131623995;
-			
 			// aapt resource value: 0x7F0E003C
-			public const int createTableTask = 2131623996;
+			public const int createTableAppointment = 2131623996;
 			
 			// aapt resource value: 0x7F0E003D
-			public const int createTableUser = 2131623997;
+			public const int createTableTask = 2131623997;
 			
 			// aapt resource value: 0x7F0E003E
-			public const int deleteAppointmentById = 2131623998;
+			public const int createTableUser = 2131623998;
 			
 			// aapt resource value: 0x7F0E003F
-			public const int deleteTaskByAppointmentId = 2131623999;
+			public const int deleteAppointmentById = 2131623999;
 			
 			// aapt resource value: 0x7F0E0040
-			public const int deleteTaskById = 2131624000;
+			public const int deleteTaskByAppointmentId = 2131624000;
 			
 			// aapt resource value: 0x7F0E0041
-			public const int fab_transformation_scrim_behavior = 2131624001;
+			public const int deleteTaskById = 2131624001;
 			
 			// aapt resource value: 0x7F0E0042
-			public const int fab_transformation_sheet_behavior = 2131624002;
+			public const int fab_transformation_scrim_behavior = 2131624002;
 			
 			// aapt resource value: 0x7F0E0043
-			public const int getAllAppointments = 2131624003;
+			public const int fab_transformation_sheet_behavior = 2131624003;
 			
 			// aapt resource value: 0x7F0E0044
-			public const int getAllTasksByAppointmentId = 2131624004;
+			public const int getAllAppointments = 2131624004;
 			
 			// aapt resource value: 0x7F0E0045
-			public const int getAppointmentById = 2131624005;
+			public const int getAllTasksByAppointmentId = 2131624005;
 			
 			// aapt resource value: 0x7F0E0046
-			public const int getTaskById = 2131624006;
+			public const int getAppointmentById = 2131624006;
 			
 			// aapt resource value: 0x7F0E0047
-			public const int getUserToken = 2131624007;
+			public const int getTaskById = 2131624007;
 			
 			// aapt resource value: 0x7F0E0048
-			public const int hide_bottom_view_on_scroll_behavior = 2131624008;
+			public const int getUserToken = 2131624008;
 			
 			// aapt resource value: 0x7F0E0049
-			public const int login = 2131624009;
+			public const int hide_bottom_view_on_scroll_behavior = 2131624009;
+			
+			// aapt resource value: 0x7F0E004A
+			public const int login = 2131624010;
 			
 			// aapt resource value: 0x7F0E0002
 			public const int LoginEmptyError = 2131623938;
@@ -4410,11 +4413,11 @@ namespace ZAPP
 			// aapt resource value: 0x7F0E0003
 			public const int LoginWrongError = 2131623939;
 			
-			// aapt resource value: 0x7F0E004A
-			public const int logoDescription = 2131624010;
-			
 			// aapt resource value: 0x7F0E004B
-			public const int mtrl_chip_close_icon_content_description = 2131624011;
+			public const int logoDescription = 2131624011;
+			
+			// aapt resource value: 0x7F0E004C
+			public const int mtrl_chip_close_icon_content_description = 2131624012;
 			
 			// aapt resource value: 0x7F0E0004
 			public const int NotWorkingError = 2131623940;
@@ -4425,32 +4428,32 @@ namespace ZAPP
 			// aapt resource value: 0x7F0E0006
 			public const int Password = 2131623942;
 			
-			// aapt resource value: 0x7F0E004C
-			public const int password_toggle_content_description = 2131624012;
-			
 			// aapt resource value: 0x7F0E004D
-			public const int path_password_eye = 2131624013;
+			public const int password_toggle_content_description = 2131624013;
 			
 			// aapt resource value: 0x7F0E004E
-			public const int path_password_eye_mask_strike_through = 2131624014;
+			public const int path_password_eye = 2131624014;
 			
 			// aapt resource value: 0x7F0E004F
-			public const int path_password_eye_mask_visible = 2131624015;
+			public const int path_password_eye_mask_strike_through = 2131624015;
 			
 			// aapt resource value: 0x7F0E0050
-			public const int path_password_strike_through = 2131624016;
+			public const int path_password_eye_mask_visible = 2131624016;
 			
 			// aapt resource value: 0x7F0E0051
-			public const int saveUserToken = 2131624017;
+			public const int path_password_strike_through = 2131624017;
 			
 			// aapt resource value: 0x7F0E0052
-			public const int search_menu_title = 2131624018;
+			public const int saveUserToken = 2131624018;
+			
+			// aapt resource value: 0x7F0E0053
+			public const int search_menu_title = 2131624019;
 			
 			// aapt resource value: 0x7F0E0007
 			public const int StartWorking = 2131623943;
 			
-			// aapt resource value: 0x7F0E0053
-			public const int status_bar_notification_info_overflow = 2131624019;
+			// aapt resource value: 0x7F0E0054
+			public const int status_bar_notification_info_overflow = 2131624020;
 			
 			// aapt resource value: 0x7F0E0008
 			public const int StopWorking = 2131623944;
@@ -4458,11 +4461,11 @@ namespace ZAPP
 			// aapt resource value: 0x7F0E0009
 			public const int Tasks = 2131623945;
 			
-			// aapt resource value: 0x7F0E0054
-			public const int updateAppointment = 2131624020;
-			
 			// aapt resource value: 0x7F0E0055
-			public const int updateTimeForAppointment = 2131624021;
+			public const int updateAppointment = 2131624021;
+			
+			// aapt resource value: 0x7F0E0056
+			public const int updateTimeForAppointment = 2131624022;
 			
 			// aapt resource value: 0x7F0E000A
 			public const int Username = 2131623946;
@@ -8930,7 +8933,10 @@ namespace ZAPP
 		{
 			
 			// aapt resource value: 0x7F110000
-			public const int xamarin_essentials_fileprovider_file_paths = 2131820544;
+			public const int network_security_config = 2131820544;
+			
+			// aapt resource value: 0x7F110001
+			public const int xamarin_essentials_fileprovider_file_paths = 2131820545;
 			
 			static Xml()
 			{

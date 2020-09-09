@@ -12,6 +12,8 @@ using Android.Widget;
 using System.Collections;
 using ZAPP.Records;
 using Java.Net;
+using ZAPP.Services;
+using System.Threading.Tasks;
 
 namespace ZAPP.Activities
 {
@@ -34,9 +36,8 @@ namespace ZAPP.Activities
             };
         }
 
-        protected void login(string username, string password)
+        async protected void login(string username, string password)
         {
-            Console.WriteLine($"username: {username}, password: {password} ");
             TextView loginError = FindViewById<TextView>(Resource.Id.loginError);
             if (String.IsNullOrEmpty(username) || String.IsNullOrEmpty(password))
             {
@@ -45,7 +46,9 @@ namespace ZAPP.Activities
                 return;
             }
             // try login, if login wrong 
-            string userToken = loginCheck(username, password);
+            Task<string> loginCheckTask = loginCheckAsync(username, password);
+            string userToken = await loginCheckTask;
+
             if (String.IsNullOrEmpty(userToken)) 
             {
                 loginError.Text = Resources.GetString(Resource.String.LoginWrongError);
@@ -62,12 +65,14 @@ namespace ZAPP.Activities
             }
         }
 
-        protected string loginCheck(string username, string password)
+        async protected Task<string> loginCheckAsync(string username, string password)
         {
             // interact with api
-            string userToken = "";
-            if (username == "user1" && password == "pass1")
-                userToken = "usertoken1";
+            ApiService apiService = new ApiService(this);
+            Task<string> userTokenTask = apiService.RequestUserToken(username, password);
+            string userToken = await userTokenTask; 
+            //if (username == "user1" && password == "pass1")
+            //    userToken = "usertoken1";
             return userToken;
         }
 
