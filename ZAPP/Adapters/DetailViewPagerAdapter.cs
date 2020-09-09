@@ -53,27 +53,26 @@ namespace ZAPP.Adapters
             Bundle args = new Bundle();
 
             args.PutString("ID", appointmentRecord.id.ToString());
-            if (position == 2)
+            Android.Support.V4.App.Fragment tabFragment;
+            switch (position)
             {
-                return (Android.Support.V4.App.Fragment)
-                    ScrollViewFragment.NewInstance(appointmentRecord, "comment");
-            }
-            else if (position == 1)
-            {
-                return (Android.Support.V4.App.Fragment)
+                case (1):
+                    tabFragment = (Android.Support.V4.App.Fragment)
                     ScrollViewFragment.NewInstance(appointmentRecord, "address");
-            }
-            else
-            {
-                Android.Support.V4.App.Fragment taskFragment = new TasksFragment();
-                
-                taskFragment.Arguments = args;
-                return taskFragment;
-            }
+                    break;
+                case (2):
+                     tabFragment = (Android.Support.V4.App.Fragment)
+                    ScrollViewFragment.NewInstance(appointmentRecord, "comment"); 
+                    break;
+                default:
+                tabFragment = new TasksFragment();
+                tabFragment.Arguments = args;
+                    break;
+            }  
+            return tabFragment;
 
         }
 
-        //Fill in cound here, currently 0
         public override int Count
         {
             get

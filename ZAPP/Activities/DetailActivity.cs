@@ -40,18 +40,13 @@ namespace ZAPP.Activities
 
 
             Button aanmeldButton = FindViewById<Button>(Resource.Id.aanmeldButton);
-            if (Singleton.currentlyWorking != null)
-            {
-                if (Singleton.currentlyWorking != appointmentId)
-                {
-                aanmeldButton.Enabled = false;
 
-                } else
-                {
-                    aanmeldButton.Text = Resources.GetString(Resource.String.StopWorking);
-                    if (!Singleton.tasksComplete)
-                        aanmeldButton.Enabled = false;
-                }
+            if (Singleton.currentlyWorking == appointmentId)
+            {
+                aanmeldButton.Text = Resources.GetString(Resource.String.StopWorking);
+
+                if (Singleton.tasksComplete)
+                    aanmeldButton.Enabled = true;
             }
 
             aanmeldButton.Click += delegate

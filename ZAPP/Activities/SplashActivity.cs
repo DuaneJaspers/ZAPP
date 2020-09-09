@@ -29,8 +29,6 @@ namespace ZAPP.Activities
 
             Task StartUpWork = new Task( () => { Startup();  });
             StartUpWork.Start();
-            //StartActivity(typeof(Home));
-            //StartActivity(typeof(LoginActivity));
 
         }
 

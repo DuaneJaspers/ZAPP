@@ -30,22 +30,14 @@
             android:layout_height="wrap_content"
             android:id="@+id/tabLayout1" />
         </android.support.v4.view.ViewPager>
-           
-
-           <!-- <ListView
-                android:minWidth="25px"
-                android:minHeight="25px"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/taskList" />-->
-        
+      
         
         </LinearLayout>
     <Button
         android:text="@string/StartWorking"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:enabled="true"
+        android:enabled="false"
         android:layout_marginTop="10px"
         android:layout_alignParentBottom="true"
         android:id="@+id/aanmeldButton" />

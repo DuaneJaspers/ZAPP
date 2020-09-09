@@ -30,9 +30,7 @@ namespace ZAPP.Activities
 
             loginButton.Click += delegate
             {
-
                 login(username.Text, password.Text);
-
             };
         }
 
@@ -66,6 +64,7 @@ namespace ZAPP.Activities
 
         protected string loginCheck(string username, string password)
         {
+            // interact with api
             string userToken = "";
             if (username == "user1" && password == "pass1")
                 userToken = "usertoken1";

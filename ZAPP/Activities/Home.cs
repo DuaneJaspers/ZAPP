@@ -72,8 +72,6 @@ namespace ZAPP.Activities
             
             var intent = new Intent(this, typeof(DetailActivity));
             intent.PutExtra("ID", t.id.ToString());
-            intent.PutExtra("working", t.working);
-            intent.PutExtra("description", t.address.ToString());
             StartActivityForResult(intent, 0);
         }
 
