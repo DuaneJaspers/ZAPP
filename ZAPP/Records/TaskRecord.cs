@@ -17,26 +17,26 @@ namespace ZAPP.Records
     public class TaskRecord
     {
         public int? id;
-        public int appointment_id;
+        public string appointment_id;
         public string description;
         public bool complete;
 
-        public TaskRecord(JsonValue record, int appointment_id)
+        public TaskRecord(JsonValue record, string appointment_id)
         {
             this.appointment_id = appointment_id;
-            this.description = (string)record["description"];
+            this.description = (string)record["value"];
         }
 
         public TaskRecord(SqliteDataReader record)
         {
             this.id = (int)(Int64)record["id"];
-            this.appointment_id = (int)(Int64)record["appointment_id"];
+            this.appointment_id = (string)record["appointment_id"];
             this.description = (string)record["description"];
             var temp = record["complete"];
             this.complete = (bool)record["complete"];
         }
 
-        public TaskRecord(int id, int appointment_id, string description, bool complete)
+        public TaskRecord(int id, string appointment_id, string description, bool complete)
         {
             this.id = id;
             this.appointment_id = appointment_id;

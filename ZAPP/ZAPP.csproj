@@ -81,6 +81,7 @@
     <Compile Include="Activities\Home.cs" />
     <Compile Include="Adapters\HomeListViewAdapter.cs" />
     <None Include="JSON\appointment.collection.json" />
+    <None Include="JSON\appointment.collectiontemp.json" />
     <None Include="JSON\client.collection.json" />
     <None Include="JSON\fakeTask.JSON" />
     <Compile Include="Records\OverviewListRecord.cs" />

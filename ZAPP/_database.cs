@@ -23,6 +23,8 @@ using System.Linq.Expressions;
 using Android.Support.V4.View.Animation;
 using Java.Nio.FileNio;
 using System.Text.RegularExpressions;
+using ZAPP.Services;
+using System.Threading.Tasks;
 
 namespace ZAPP
 {
@@ -90,32 +92,34 @@ namespace ZAPP
             }
         }
 
-        public void syncDatabase()
+        async public Task syncDatabase()
         {
             ArrayList allAppointmentRecords = getAllAppointments();
             ArrayList newAppointments = new ArrayList();
             ArrayList existingAppointments = new ArrayList();
 
-            var webClient = new WebClient();
-            webClient.Encoding = Encoding.UTF8;
+            ApiService api = new ApiService(context);
+            Task<JsonValue> appointmentTasks = api.getAppointments();
+            JsonValue value = await appointmentTasks;
+
+            //var webClient = new WebClient();
+            //webClient.Encoding = Encoding.UTF8;
             try
             {
-                byte[] myDataBuffer = webClient.DownloadData(this.DATA_URL);
-                string download = Encoding.ASCII.GetString(myDataBuffer);
+                //byte[] myDataBuffer = webClient.DownloadData(this.DATA_URL);
+                //string download = Encoding.ASCII.GetString(myDataBuffer);
 
-                JsonValue value = JsonValue.Parse(download);
+                //JsonValue value = JsonValue.Parse(download);
 
                 // loop through different appointments
-                foreach (var allAppointments in (JsonObject)value)
+                foreach (JsonObject appointment in value)
                 {
-                    var key = allAppointments.Key;
-                    JsonValue appointmentValue = allAppointments.Value;
-                    foreach (JsonObject appointment in appointmentValue)
-                    {
+                    //foreach (JsonObject appointment in appointmentValue)
+                    //{
                         ArrayList taskRecords = new ArrayList();
                         foreach (JsonObject taskObject in appointment["tasks"])
                         {
-                            TaskRecord taskRecord = new TaskRecord(taskObject, appointment["id"]);
+                            TaskRecord taskRecord = new TaskRecord(taskObject, appointment["_id"]);
                             taskRecords.Add(taskRecord);
                         }
                         AppointmentRecord appointmentRecord = new AppointmentRecord(appointment, taskRecords);
@@ -132,7 +136,7 @@ namespace ZAPP
                         }
                         if (!exists)
                             newAppointments.Add(appointmentRecord);
-                    }
+                    //}
 
                 }
                 updateTables(newAppointments, existingAppointments, allAppointmentRecords);
@@ -183,7 +187,7 @@ namespace ZAPP
             Resources res = this.context.Resources;
             string command = res.GetString(Resource.String.updateAppointment);
             command = String.Format(command,
-                appointmentRecord.id, appointmentRecord.datetime, appointmentRecord.client_name.Replace("'" ,"''"),
+                appointmentRecord.id, appointmentRecord.datetime, appointmentRecord.client_name.Replace("'", "''"),
                 appointmentRecord.client_address.Replace("'", "''"), appointmentRecord.client_zipcode, appointmentRecord.client_city.Replace("'", "''"),
                 appointmentRecord.client_phonenumber.Replace("'", "''"), appointmentRecord.comment.Replace("'", "''"));
             this.nonQueryToDatabase(command);
@@ -440,12 +444,12 @@ namespace ZAPP
 
         }
         
-        public void updateTimeForAppointment(int id, string columnName)
+        public void updateTimeForAppointment(string id, string columnName)
         {
             Resources res = this.context.Resources;
             string command = res.GetString(Resource.String.updateTimeForAppointment);
             string sqlFormattedDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-            command = String.Format(command, id.ToString(), columnName, sqlFormattedDate);
+            command = String.Format(command, id, columnName, sqlFormattedDate);
             nonQueryToDatabase(command);
         }
 

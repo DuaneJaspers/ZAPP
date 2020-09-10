@@ -6,7 +6,7 @@
       CREATE TABLE user(user_token ntext)
     </string>
   <string name="createTableAppointment">
-    CREATE TABLE appointment(id INTEGER PRIMARY KEY AUTOINCREMENT,
+    CREATE TABLE appointment(id ntext PRIMARY KEY,
                       datetime DATETIME,
                       client_name ntext,
                       client_address ntext,
@@ -19,7 +19,7 @@
   </string>
   <string name="createTableTask">
     CREATE TABLE task(id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-    appointment_id INTEGER NOT NULL,
+    appointment_id ntext NOT NULL,
     description ntext,
     complete BOOL NOT NULL,
     FOREIGN KEY(appointment_id) REFERENCES appointment(id)
@@ -36,26 +36,26 @@
     INSERT INTO task(id, appointment_id, description, complete) VALUES ({0}, \'{1}\', \'{2}\', {3})
   </string>
   <string name="updateTimeForAppointment">
-    UPDATE appointment SET {1} = \'{2}\' WHERE id = {0}
+    UPDATE appointment SET {1} = \'{2}\' WHERE id = \'{0}\'
   </string>
   <string name="updateAppointment">
-    UPDATE appointment SET datetime = \'{1}\'
-                            client_name = \'{2}\'
-                            client_address = \'{3}\'
-                            client_zipcode = \'{4}\'
-                            client_city = \'{5}\'
-                            client_phonenumber = \'{6}\'
+    UPDATE appointment SET datetime = \'{1}\',
+                            client_name = \'{2}\',
+                            client_address = \'{3}\',
+                            client_zipcode = \'{4}\',
+                            client_city = \'{5}\',
+                            client_phonenumber = \'{6}\',
                             comment = \'{7}\'
-     WHERE id = {0}
+     WHERE id = \'{0}\'
   </string>
   <string name="deleteAppointmentById">
-    DELETE FROM appointment WHERE id = {0}
+    DELETE FROM appointment WHERE id = \'{0}\'
   </string>
   <string name="deleteTaskById">
     DELETE FROM task WHERE id = {0} 
   </string>
   <string name="deleteTaskByAppointmentId">
-    DELETE FROM task WHERE appointment_id = {0}
+    DELETE FROM task WHERE appointment_id = \'{0}\'
   </string>
   <string name="getTaskById">
     SELECT * FROM task WHERE id = {0}
@@ -67,10 +67,10 @@
     SELECT * FROM appointment ORDER BY datetime ASC
   </string>
   <string name="getAppointmentById">
-    SELECT * FROM appointment WHERE id = {0}
+    SELECT * FROM appointment WHERE id = \'{0}\'
   </string>
   <string name="getAllTasksByAppointmentId">
-    SELECT * FROM task WHERE appointment_id = {0} 
+    SELECT * FROM task WHERE appointment_id = \'{0}\' 
   </string>
   <string name="logoDescription">
   ZAPP logo

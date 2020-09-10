@@ -18,7 +18,7 @@ namespace ZAPP.Records
 {
     public class AppointmentRecord
     {
-        public int id;
+        public string id;
         public string datetime;
         public string client_name;
         public string client_address;
@@ -33,8 +33,8 @@ namespace ZAPP.Records
 
         public AppointmentRecord(JsonValue record, ArrayList Tasks)
         {
-            this.id = (int)(Int64)record["id"];
-            this.datetime = (string)record["datetime"];
+            this.id = (string)record["_id"];
+            this.datetime = (string)record["date"]+" "+(string)record["time"];
             this.client_name = (string)@record["client"]["name"];
             this.client_address = (string)@record["client"]["address"];
             this.client_zipcode = (string)@record["client"]["zipcode"];
@@ -46,7 +46,7 @@ namespace ZAPP.Records
 
         public AppointmentRecord(SqliteDataReader record)
         {
-            this.id = (int)(Int64)record["id"];
+            this.id = (string)record["id"];
             this.datetime = record["datetime"].ToString();
             this.client_name = (string)record["client_name"];
             this.client_address = (string)record["client_address"];

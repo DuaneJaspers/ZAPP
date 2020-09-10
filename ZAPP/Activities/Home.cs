@@ -12,7 +12,7 @@ using Android.Widget;
 using System.Collections;
 using ZAPP.Records;
 using ZAPP.Adapters;
-
+using System.Threading.Tasks;
 
 namespace ZAPP.Activities
 {
@@ -82,10 +82,10 @@ namespace ZAPP.Activities
             base.OnActivityResult(requestCode, resultCode, data);
         }
 
-        private void syncDatabase()
+        async private void syncDatabase()
         {
             _database db = new _database(this);
-            db.syncDatabase();
+            await Task.Run(() => db.syncDatabase());
             fillData();
         }
     }

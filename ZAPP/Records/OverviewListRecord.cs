@@ -16,7 +16,7 @@ namespace ZAPP.Records
 {
     class OverviewListRecord
     {
-        public int id;
+        public string id;
         public string name;
         public string address;
         public string phonenumber;
@@ -25,7 +25,7 @@ namespace ZAPP.Records
         public string datetime;
         public bool working;
 
-        public OverviewListRecord(int id, string name, string address, string phonenumber, string zipcode, string city, string datetime, string start_time)
+        public OverviewListRecord(string id, string name, string address, string phonenumber, string zipcode, string city, string datetime, string start_time)
         {
             this.id = id;
             this.name = name;

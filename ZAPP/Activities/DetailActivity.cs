@@ -43,8 +43,10 @@ namespace ZAPP.Activities
 
             if (Singleton.currentlyWorking == appointmentId)
                 aanmeldButton.Text = Resources.GetString(Resource.String.StopWorking);
+                if (Singleton.tasksComplete)
+                    aanmeldButton.Enabled = true;
 
-            if (Singleton.tasksComplete || String.IsNullOrEmpty(Singleton.currentlyWorking))
+            if (String.IsNullOrEmpty(Singleton.currentlyWorking))
                 aanmeldButton.Enabled = true;
 
             aanmeldButton.Click += delegate
@@ -68,7 +70,7 @@ namespace ZAPP.Activities
             if (aanmeldButton.Text == res.GetString(Resource.String.StartWorking))
             {
                 // send time to to api (maybe in updateTimeForAppointment?)
-                db.updateTimeForAppointment(int.Parse(appointmentId), "time_start");
+                db.updateTimeForAppointment(appointmentId, "time_start");
                 Singleton.currentlyWorking = appointmentId;
                 aanmeldButton.Text = res.GetString(Resource.String.StopWorking);
                 aanmeldButton.Enabled = false;
@@ -83,7 +85,7 @@ namespace ZAPP.Activities
             // afmeldbutton hit
             else
             {
-                db.updateTimeForAppointment(int.Parse(appointmentId), "time_finish");
+                db.updateTimeForAppointment(appointmentId, "time_finish");
                 // send time to to api (maybe in updateTimeForAppointment?)
                 // TODO
                 //
