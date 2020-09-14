@@ -48,9 +48,6 @@ namespace ZAPP.Activities
             }
             await Task.Delay(200);
             StartActivity(typeof(Home));
-            //db.login();
-
-
 
         }
 

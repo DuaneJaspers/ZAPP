@@ -19,15 +19,12 @@ namespace ZAPP.Fragments
 {
     public class TasksFragment : Android.Support.V4.App.ListFragment
     {
-        //bool workingHere = false;
-        //bool workingSomewhere = false;
-        //bool workingComplete = false;
         string appointmentId;
 
         public override void OnActivityCreated(Bundle savedInstanceState)
         {
             base.OnActivityCreated(savedInstanceState);
-            // fillTasksTab()
+
             _database db = new _database(Activity);
             appointmentId = Arguments.GetString("ID");
             var tasks = db.getAllTasksByAppointmentId(appointmentId);
@@ -37,9 +34,6 @@ namespace ZAPP.Fragments
             {
                 records.Add(taskRecord);
             }
-
-
-            //listView = FindViewById<ListView>(Resource.Id.taskList);
 
             var tasklistAdapter = new TaskListViewAdapter(Activity, records, appointmentId);
             tasklistAdapter.TasksComplete += OnTasksComplete;

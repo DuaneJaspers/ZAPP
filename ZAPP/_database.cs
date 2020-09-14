@@ -25,6 +25,7 @@ using Java.Nio.FileNio;
 using System.Text.RegularExpressions;
 using ZAPP.Services;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace ZAPP
 {
@@ -32,9 +33,6 @@ namespace ZAPP
     {
         //Context Definieren
         private Context context;
-        //private readonly string DATA_URL = "https://gist.githubusercontent.com/DuaneJaspers/2e47a7c38e8f736a2036c52221362cef/raw/e9c7ccabd91217202f653aa3af3e2007fa155a1c/tasks.json";
-        //private readonly string DATA_URL = "https://fakemyapi.com/api/fake?id=9c8c603a-bdbc-4d41-b955-0420ca1730a8";
-        private readonly string DATA_URL = "https://fakemyapi.com/api/fake?id=2d6a88d5-21fc-4a51-85fc-4e5cdc364b53";
         private string connectionstring;  
         // constructor
         public _database(Context context)
@@ -99,23 +97,14 @@ namespace ZAPP
             ArrayList existingAppointments = new ArrayList();
 
             ApiService api = new ApiService(context);
-            Task<JsonValue> appointmentTasks = api.getAppointments();
-            JsonValue value = await appointmentTasks;
 
-            //var webClient = new WebClient();
-            //webClient.Encoding = Encoding.UTF8;
-            try
-            {
-                //byte[] myDataBuffer = webClient.DownloadData(this.DATA_URL);
-                //string download = Encoding.ASCII.GetString(myDataBuffer);
-
-                //JsonValue value = JsonValue.Parse(download);
+            try { 
+                Task<JsonValue> appointmentTasks = api.getAppointments();
+                JsonValue value = await appointmentTasks;
 
                 // loop through different appointments
                 foreach (JsonObject appointment in value)
                 {
-                    //foreach (JsonObject appointment in appointmentValue)
-                    //{
                         ArrayList taskRecords = new ArrayList();
                         foreach (JsonObject taskObject in appointment["tasks"])
                         {
@@ -141,9 +130,9 @@ namespace ZAPP
                 }
                 updateTables(newAppointments, existingAppointments, allAppointmentRecords);
             }
-            catch (WebException)
+            catch (Java.Net.SocketTimeoutException)
             {
-                // even niks doen
+                Console.WriteLine("connection error");
             }
         }
 
@@ -170,7 +159,7 @@ namespace ZAPP
             {
                 // delete leftovers from db
                 deleteOldAppointment(oldRecord);
-                deleteOldTasks(oldRecord); 
+                deleteOldTasksByAppointment(oldRecord); 
             }
         }
         private void deleteOldAppointment(AppointmentRecord appointmentRecord)
@@ -209,18 +198,18 @@ namespace ZAPP
                         exists = true;
                         break;
                         // dont do anything with it
-                        //exisitingTasks.Add(possibleTask);
                     }
                 }
                 if (!exists)
                 {
-                    //newTasks.Add(possibleTask);
+                    //add task
                     saveTaskRecord(possibleTask);
                 }
             }
             foreach (TaskRecord oldTask in allTasks)
             {
                 // remove task from db
+                this.deleteOldTasksByTask(oldTask);
             }
 
 
@@ -240,11 +229,18 @@ namespace ZAPP
             }
             conn.Close();
         }
-        public void deleteOldTasks(AppointmentRecord appointmentRecord)
+        public void deleteOldTasksByAppointment(AppointmentRecord appointmentRecord)
+        {
+            Resources res = this.context.Resources;
+            string command = res.GetString(Resource.String.deleteTaskByAppointmentId);
+            command = String.Format(command, appointmentRecord.id);
+            this.nonQueryToDatabase(command);
+        }
+        public void deleteOldTasksByTask(TaskRecord task)
         {
             Resources res = this.context.Resources;
             string command = res.GetString(Resource.String.deleteTaskById);
-            command = String.Format(command, appointmentRecord.id);
+            command = String.Format(command, task.id);
             this.nonQueryToDatabase(command);
 
         }
@@ -285,8 +281,6 @@ namespace ZAPP
         }
         public void getUserToken()
         {
-            //UserRecord userRecord;
-
             Resources res = this.context.Resources;
             string command = res.GetString(Resource.String.getUserToken);
             using (var conn = new SqliteConnection(connectionstring))
@@ -301,7 +295,6 @@ namespace ZAPP
                     if (record.HasRows)
                     {
                         record.Read();
-                        //userRecord = new UserRecord(record);
                         Singleton.userToken = (string)record["user_token"];
                     } 
                     record.Close();
@@ -340,41 +333,6 @@ namespace ZAPP
                 id, record.appointment_id, record.description, complete);
             this.nonQueryToDatabase(command);
         }
-
-        //public void downloadData()
-        //{
-        //    var webClient = new WebClient();
-        //    webClient.Encoding = Encoding.UTF8;
-        //    try
-        //    {
-        //        byte[] myDataBuffer = webClient.DownloadData(this.DATA_URL);
-        //        string download = Encoding.ASCII.GetString(myDataBuffer);
-
-        //        JsonValue value = JsonValue.Parse(download);
-
-        //        // loop through differenct tasks
-        //        foreach (var allAppointments in (JsonObject)value)
-        //        {
-        //            var key = allAppointments.Key;
-        //            JsonValue taskValue = allAppointments.Value;
-        //            foreach (JsonObject appointment in taskValue)
-        //            {
-        //                AppointmentRecord appointmentRecord = new AppointmentRecord(appointment);
-        //                this.saveAppointmentRecord(appointmentRecord);
-        //                foreach (JsonObject taskObject in appointment["tasks"])
-        //                {
-        //                    TaskRecord taskRecord = new TaskRecord(taskObject, appointment["id"]);
-        //                    this.saveTaskRecord(taskRecord);
-        //                }
-        //            }
-        //        }
-
-        //    }
-        //    catch (WebException)
-        //    {
-        //        // even niks doen
-        //    }
-        //}
 
         public ArrayList getAllAppointments()
         {
@@ -446,6 +404,8 @@ namespace ZAPP
         
         public void updateTimeForAppointment(string id, string columnName)
         {
+            ApiService api = new ApiService(context);
+            api.postTimeToApi(id, columnName);
             Resources res = this.context.Resources;
             string command = res.GetString(Resource.String.updateTimeForAppointment);
             string sqlFormattedDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");

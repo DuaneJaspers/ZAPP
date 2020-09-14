@@ -17,6 +17,7 @@ using Android.Widget;
 using Java.Net;
 using Newtonsoft.Json;
 using Org.Apache.Http.Client.Params;
+using SQLite;
 
 namespace ZAPP.Services
 {
@@ -25,6 +26,11 @@ namespace ZAPP.Services
         private Context context;
         private string api_token;
         private string api_address = "http://192.168.1.41";
+        //private string api_address = "http://192.168.178.166";
+        //private string api_address = "http://192.168.178.65";
+
+
+
         private string api_port = "8080";
         private HttpClient _client;
         public ApiService(Context context)
@@ -40,12 +46,15 @@ namespace ZAPP.Services
             _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", api_token);
             string json = JsonConvert.SerializeObject(new loginData(username, password));
             StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+
             var response = await _client.PostAsync(login_url, content);
             var jsonstring = await response.Content.ReadAsStringAsync();
-            var result = JsonConvert.DeserializeObject(jsonstring);
+
             JsonValue value = JsonValue.Parse(jsonstring);
-            //Singleton.userToken = value["api_key"].ToString();
-            return value["api_key"];
+            if (value.ContainsKey("api_key"))
+                return value["api_key"];
+            return "error";
+            
         }
 
         public async Task<JsonValue> getAppointments()
@@ -59,8 +68,39 @@ namespace ZAPP.Services
             var jsonstring = await response.Content.ReadAsStringAsync();
             var result = JsonConvert.DeserializeObject(jsonstring);
             JsonValue value = JsonValue.Parse(jsonstring);
-            //Singleton.userToken = value["api_key"].ToString();
             return value["entries"];
+
+        }
+
+        public async void postTimeToApi(string appointment_id, string columnName)
+        {
+            string appointment_url = api_address + ":" + api_port + "/api/collections/save/appointment";
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Singleton.userToken);
+            object data;
+            if (columnName == "time_start")
+            { 
+                data = new
+                {
+                    _id = appointment_id,
+                    start_time = DateTime.Now.ToString("HH:mm")
+                };
+            }
+            else
+            {
+                data = new
+                {
+                    _id = appointment_id,
+                    end_time = DateTime.Now.ToString("HH:mm")
+                };
+            }
+            object body = new
+            {
+                data = data
+            };
+            string json = JsonConvert.SerializeObject(body);
+            StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+            var response = await _client.PostAsync(appointment_url, content);
+
         }
 
 

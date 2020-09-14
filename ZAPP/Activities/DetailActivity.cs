@@ -86,9 +86,6 @@ namespace ZAPP.Activities
             else
             {
                 db.updateTimeForAppointment(appointmentId, "time_finish");
-                // send time to to api (maybe in updateTimeForAppointment?)
-                // TODO
-                //
                 Singleton.currentlyWorking = null;
 
                 aanmeldButton.Enabled = false;

@@ -49,7 +49,7 @@ namespace ZAPP.Activities
             Task<string> loginCheckTask = loginCheckAsync(username, password);
             string userToken = await loginCheckTask;
 
-            if (String.IsNullOrEmpty(userToken)) 
+            if (userToken == "error") 
             {
                 loginError.Text = Resources.GetString(Resource.String.LoginWrongError);
                 loginError.Visibility = ViewStates.Visible;
@@ -71,8 +71,6 @@ namespace ZAPP.Activities
             ApiService apiService = new ApiService(this);
             Task<string> userTokenTask = apiService.RequestUserToken(username, password);
             string userToken = await userTokenTask; 
-            //if (username == "user1" && password == "pass1")
-            //    userToken = "usertoken1";
             return userToken;
         }
 

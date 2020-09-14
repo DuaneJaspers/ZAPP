@@ -86,6 +86,9 @@
   <string name="NotWorkingError">
     Meld je eerst aan voordat je taken gaat afvinken 
   </string>
+  <string name="ConnectionError">
+    Kon geen verbinden maken met het netwerk...
+  </string>
   <string name="NotWorkingHereError">
     Je bent op het moment ergens anders aan het werken, maak dat eerst af voordat je hier begint
   </string>
