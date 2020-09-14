@@ -38,31 +38,37 @@ namespace ZAPP.Activities
 
         async protected void login(string username, string password)
         {
+            ProgressBar progress = FindViewById<ProgressBar>(Resource.Id.simpleProgressBar);
+            progress.Visibility = ViewStates.Visible;
+            Button btn = FindViewById<Button>(Resource.Id.loginButton);
+            btn.Visibility = ViewStates.Gone;
             TextView loginError = FindViewById<TextView>(Resource.Id.loginError);
             if (String.IsNullOrEmpty(username) || String.IsNullOrEmpty(password))
             {
                 loginError.Text = Resources.GetString(Resource.String.LoginEmptyError);
                 loginError.Visibility = ViewStates.Visible;
+                progress.Visibility = ViewStates.Invisible;
+                btn.Visibility = ViewStates.Visible;
                 return;
             }
             // try login, if login wrong 
+    
             Task<string> loginCheckTask = loginCheckAsync(username, password);
             string userToken = await loginCheckTask;
-
+            progress.Visibility = ViewStates.Invisible;
+            btn.Visibility = ViewStates.Visible;
             if (userToken == "error") 
             {
                 loginError.Text = Resources.GetString(Resource.String.LoginWrongError);
                 loginError.Visibility = ViewStates.Visible;
                 return;
             }
-            else
-            {
-                loginError.Visibility = ViewStates.Gone;
-                _database db = new _database(this);
-                db.saveUserToken(userToken);
-                Singleton.userToken = userToken;
-                StartActivity(typeof(SplashActivity));
-            }
+            loginError.Visibility = ViewStates.Gone;
+            _database db = new _database(this);
+            db.saveUserToken(userToken);
+            Singleton.userToken = userToken;
+            StartActivity(typeof(SplashActivity));
+            
         }
 
         async protected Task<string> loginCheckAsync(string username, string password)

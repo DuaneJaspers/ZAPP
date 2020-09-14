@@ -46,7 +46,7 @@ namespace ZAPP.Activities
                     return;
                 }
             }
-            await Task.Delay(200);
+            await Task.Run(() => db.syncDatabase());
             StartActivity(typeof(Home));
 
         }

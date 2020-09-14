@@ -134,6 +134,10 @@ namespace ZAPP
             {
                 Console.WriteLine("connection error");
             }
+            catch(WebException)
+            {
+                Console.WriteLine("connection error");
+            }
         }
 
         private void updateTables(ArrayList newAppointments, ArrayList existingAppointments, ArrayList allAppointmentRecords)

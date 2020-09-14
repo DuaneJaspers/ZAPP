@@ -26,14 +26,12 @@ namespace ZAPP.Activities
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-
-            syncDatabase();
+            fillData();
         }
 
         private void fillData()
         {
             _database db = new _database(this);
-            //db.syncDatabase();
             result = db.getAllAppointments();
             records = new List<OverviewListRecord>();
             foreach (AppointmentRecord appointment in result)
