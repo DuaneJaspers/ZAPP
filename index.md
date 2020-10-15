@@ -1,37 +1,18 @@
-## Welcome to GitHub Pages
+# ZAPP
 
-You can use the [editor on GitHub](https://github.com/DuaneJaspers/ZAPP/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+### Uitleg
+ZAPP is een case waarbij het de bedoeling is om een Zorgapp te maken die 1ste en 2de lijns-zorgverleners helpt hun taken uit te voeren bij cliënten.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+### Functionele beschrijving
+- Wanneer de app voor de eerste keer gestart wordt kan een gebruiker inloggen met een Username en Password, na een succesvolle login hoeft er niet opnieuw ingelogd te worden.
+- De gebruiker wordt een overzicht van cliënten getoond waar taken moeten worden uitgevoerd en op welke tijdstippen. Ook wordt er alvast de taken van de volgende dag getoond.
+- De gebruiker kan op een cliënt klikken om door te gaan naar een detailpagina waar de taken zichtbaar zijn voor die specifieke cliënt, hier is ook ruimte voor een opmerking van de planners.
+- op de detailpagina kan de gebruiker navigeren naar het adres tablad waar de gebruiker de adresgegevens van de cliënt kan bekijken.
+- De gebruiker kan zich aanmelden als deze bij de client is en kan vervolgens de taken een voor een afvinken, als deze taken voltooid zijn kan de gebruiker zich weer afmelden waarna de client uit de lijst van de overzichtspagina verdwijnt. 
 
-### Markdown
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+## Applicatieserver 
+Voor de applicatieserver wordt Cockpit CMS gebruikt, een self-hosted headless en api-driven CMS. Deze draait op een locaal netwerk en kan de app voorzien van data.
 
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/DuaneJaspers/ZAPP/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+###
+Dit is een Android app geschreven in C# met het Xamarin platform
