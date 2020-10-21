@@ -1,6 +1,9 @@
 # ZAPP
-<img src="ExtraImages/appointments.png"
-     alt="Main screen"/>  
+<p align="center">
+     <img src="ExtraImages/appointments.jpg"
+          alt="Main screen"
+          width=250}/> 
+</p>
 
 ### Uitleg
 ZAPP is een case waarbij het de bedoeling is om een Zorgapp te maken die 1ste en 2de lijns-zorgverleners helpt hun taken uit te voeren bij cliënten.
@@ -12,8 +15,17 @@ ZAPP is een case waarbij het de bedoeling is om een Zorgapp te maken die 1ste en
 - op de detailpagina kan de gebruiker navigeren naar het adres tablad waar de gebruiker de adresgegevens van de cliënt kan bekijken.
 - De gebruiker kan zich aanmelden als deze bij de client is en kan vervolgens de taken een voor een afvinken, als deze taken voltooid zijn kan de gebruiker zich weer afmelden waarna de client uit de lijst van de overzichtspagina verdwijnt. 
 
-<img src="ExtraImages/login.png"
-    alt="login screen">
+<p align="center">
+     <img src="ExtraImages/tasks.jpg"
+         alt="tasks"
+         width=200/>
+     <img src="ExtraImages/Login.jpg"
+         alt="login screen"
+         width=200/>
+     <img src="ExtraImages/address.jpg"
+         alt="address screen"
+         width=200/>
+</p>
 
 ## Applicatieserver 
 Voor de applicatieserver wordt Cockpit CMS gebruikt, een self-hosted headless en api-driven CMS. Deze draait op een locaal netwerk en kan de app voorzien van data.
