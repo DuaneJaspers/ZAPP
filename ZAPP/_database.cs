@@ -138,6 +138,10 @@ namespace ZAPP
             {
                 Console.WriteLine("connection error");
             }
+            catch (Exception)
+            {
+                Console.WriteLine("exept");
+            }
         }
 
         private void updateTables(ArrayList newAppointments, ArrayList existingAppointments, ArrayList allAppointmentRecords)
@@ -189,8 +193,6 @@ namespace ZAPP
         {
             string appointmentId = appointmentRecord.id.ToString();
             ArrayList allTasks = getAllTasksByAppointmentId(appointmentId);
-            ArrayList newTasks = new ArrayList();
-            ArrayList exisitingTasks = new ArrayList();
             foreach (TaskRecord possibleTask in appointmentRecord.taskRecords)
             {
                 bool exists = false;
@@ -201,7 +203,6 @@ namespace ZAPP
                         allTasks.Remove(possibleTask);
                         exists = true;
                         break;
-                        // dont do anything with it
                     }
                 }
                 if (!exists)

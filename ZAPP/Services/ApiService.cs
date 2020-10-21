@@ -25,19 +25,20 @@ namespace ZAPP.Services
     {
         private Context context;
         private string api_token;
-        private string api_address = "http://192.168.1.41";
-        //private string api_address = "http://192.168.178.166";
+        //private string api_address = "http://192.168.1.41";
+        private string api_address = "http://192.168.178.166";
         //private string api_address = "http://192.168.178.65";
 
 
 
-        private string api_port = "8080";
+        private string api_port = "80";
         private HttpClient _client;
         public ApiService(Context context)
         {
             this.context = context;
             api_token = context.Resources.GetString(Resource.String.api_token);
             this._client = new HttpClient();
+            this._client.Timeout = TimeSpan.FromSeconds(10);
         }
 
         public async Task<string> RequestUserToken(string username, string password)

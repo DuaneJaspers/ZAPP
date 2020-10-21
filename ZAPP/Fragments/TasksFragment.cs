@@ -45,11 +45,10 @@ namespace ZAPP.Fragments
         public override void OnListItemClick(ListView l, View v, int position, long id)
         {
 
-            Console.WriteLine($"this items gets clicked {position}");
             if (Singleton.currentlyWorking == appointmentId)
             {
                 var itemView = l.GetChildAt(position - l.FirstVisiblePosition);
-
+                Console.WriteLine(itemView.FindViewById<TextView>(Resource.Id.taskText).Text);
                 CheckBox taskCheck = itemView.FindViewById<CheckBox>(Resource.Id.checkBox1);
                 taskCheck.Enabled = true;
                 taskCheck.Toggle();
