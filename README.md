@@ -1,34 +1,32 @@
-# ZAPP
+
 <p align="center">
-     <img src="ExtraImages/appointments.jpg"
-          alt="Main screen"
-          width=250}/> 
+     <img src="readmeAssets/header.png"
+          alt="Header"
+          /> 
 </p>
+# ZAPP
 
-### Uitleg
-ZAPP is een case waarbij het de bedoeling is om een Zorgapp te maken die 1ste en 2de lijns-zorgverleners helpt hun taken uit te voeren bij cliënten.
+ZAPP is een case waarbij het de bedoeling is om een Zorgapp te maken die 1ste en 2de lijns-zorgverleners helpt hun taken uit te voeren bij cliënten. Gebruikers moeten de eerste keer inloggen en krijgen daarna een lijst te zien met afspraken waar ze die dag naartoe moeten. Wanneer een afspraak geselecteerd wordt, krijgt de gebruiker een scherm te zien met de taken die bij deze afspraak voltooid moeten worden. Deze taken kunnen afgevinkt worden nadat de gebruiker zich heeft aangemeld bij de afpraak. Er kan pas bij een andere afspraak aangemeld worden als alle taken bij de vorige afspraak voltooid zijn en de gebruiker zich ook weer heeft afmeld. Naast de taken bevat de detailpagina ook een tablad met meer informatie over de afspraak (zoals telefoonnummer en adres) en mogelijke opmerkingen.
 
-### Functionele beschrijving
-- Wanneer de app voor de eerste keer gestart wordt kan een gebruiker inloggen met een Username en Password, na een succesvolle login hoeft er niet opnieuw ingelogd te worden.
-- De gebruiker wordt een overzicht van cliënten getoond waar taken moeten worden uitgevoerd en op welke tijdstippen. Ook wordt er alvast de taken van de volgende dag getoond.
-- De gebruiker kan op een cliënt klikken om door te gaan naar een detailpagina waar de taken zichtbaar zijn voor die specifieke cliënt, hier is ook ruimte voor een opmerking van de planners.
-- op de detailpagina kan de gebruiker navigeren naar het adres tablad waar de gebruiker de adresgegevens van de cliënt kan bekijken.
-- De gebruiker kan zich aanmelden als deze bij de client is en kan vervolgens de taken een voor een afvinken, als deze taken voltooid zijn kan de gebruiker zich weer afmelden waarna de client uit de lijst van de overzichtspagina verdwijnt. 
+## Technologieën
+
+De front-end applicatie is geschreven in C# met het Xamarin platform en mioddels een Restful API wordt de data uit Cockpit, een self-hosted headless en api-driven CMS gehaald. 
+* C#
+* .Net
+* Xamarin
+* Restful API (POST/GET/PUT/DELETE)
+* XML 
+* sqlite
 
 <p align="center">
-     <img src="ExtraImages/tasks.jpg"
+     <img src="readmeAssets/tasks.jpg"
          alt="tasks"
          width=200/>
-     <img src="ExtraImages/Login.jpg"
+     <img src="readmeAssets/login.jpg"
          alt="login screen"
          width=200/>
-     <img src="ExtraImages/address.jpg"
+     <img src="readmeAssets/address.jpg"
          alt="address screen"
          width=200/>
 </p>
 
-## Applicatieserver 
-Voor de applicatieserver wordt Cockpit CMS gebruikt, een self-hosted headless en api-driven CMS. Deze draait op een locaal netwerk en kan de app voorzien van data.
-
-## Tools
-Dit is een Android app geschreven in C# met het Xamarin platform
